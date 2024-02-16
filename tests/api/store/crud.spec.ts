@@ -6,22 +6,28 @@ import { Store } from '../../../api/types/store';
 import { TestUtils } from '../../utils/test_utils';
 
 const endpoint: string = '/v2/store/order'
+let storeId;
 
-test(`@api Create "Store" in the store`, async ({ request }) => {
-    let shipDateISO: string;
-    let newStoreRequest: Store;
-    let newStoreResponse: APIResponse;
+test.describe("API Store CRUD tests", () => {
+    test(`@api Create "Store" in the store`, async ({ request }) => {
+        let shipDateISO: string;
+        let newStoreRequest: Store;
+        let newStoreResponse: APIResponse;
 
-    shipDateISO = await DataGenerator.generateDate();
+        shipDateISO = await DataGenerator.generateDate();
 
-    newStoreRequest = await DataGenerator.generateStoreWithRandomData(shipDateISO);
+        newStoreRequest = await DataGenerator.generateStoreWithRandomData(shipDateISO);
 
-    newStoreResponse = await allure.step("Posting new 'store' to the store", async () => { // TODO wrap stepem przenieść gdzieś indziej
-        return await ApiUtils.post(request, endpoint, newStoreRequest)
+        newStoreResponse = await allure.step("Posting new 'store' to the store", async () => { // TODO wrap stepem przenieść gdzieś indziej
+            return await ApiUtils.post(request, endpoint, newStoreRequest)
+        })
+
+        storeId = (await newStoreResponse.json()).id;
+            
+        await TestUtils.assertStatusCode(newStoreResponse);
+
+        await TestUtils.assertStoreObjectAreEqual(newStoreRequest, newStoreResponse);
     })
-        
-    
-    await TestUtils.assertStatusCode(newStoreResponse);
 
-    await TestUtils.assertStoreObjectAreEqual(newStoreRequest, newStoreResponse);
+    
 })
