@@ -20,7 +20,7 @@ export class ApiUtils {
         return response
     }
 
-    static async get(request: APIRequestContext, endpoint: string, params: Params): Promise<APIResponse> {
+    static async get(request: APIRequestContext, endpoint: string): Promise<APIResponse> {
         let response: APIResponse = await request.get(endpoint)
 
         allure.attachment("endpoint", endpoint, {contentType: "text/plain"})
