@@ -1,0 +1,19 @@
+{
+  "name": "playwright_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:api": "npx playwright test --grep @api --workers=1 --project=Microsoft_Edge",
+    "allureReport": "npx allure serve allure-results"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@playwright/test": "^1.41.2",
+    "@types/node": "^20.11.17",
+    "allure-playwright": "^2.12.0"
+  }
+}
