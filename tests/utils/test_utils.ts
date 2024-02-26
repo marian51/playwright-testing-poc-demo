@@ -11,7 +11,7 @@ export class TestUtils {
         })
     }
 
-    static async assertStoreObjectAreEqual(requestObject: Store, responseObject: APIResponse): Promise<void> {
+    static async assertStoreObjectAreEqual(requestObject: Store | Object, responseObject: APIResponse): Promise<void> {
         return allure.step("Checking if response object is as request object", async () => {
 
             const responseObjectJson = await responseObject.json()

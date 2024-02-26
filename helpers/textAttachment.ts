@@ -21,7 +21,7 @@ export class Attachments {
         return result;
     }
 
-    async requestTextAttachment(method: string, endpoint: string, headers: { [key: string]: string; }, body: Object): Promise<string> {
+    async requestTextAttachment(method: string, endpoint: string, headers: { [key: string]: string; }, body?: Object): Promise<string> {
         let text = ''
         for (let h in headers) {
             text = text + h + ": " + headers[h] + '<br/>'
