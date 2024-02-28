@@ -16,7 +16,7 @@ test.describe("API Action Log basic tests", () => {
         const accessToken = await AuthService.getAccessToken(request) 
 
         // Kiedy pobiera metodą GET action logi
-        const endpoint = "https://raygenic-stage.onwelo.net/api/dicom-viewer/action_log"
+        const endpoint = "/api/dicom-viewer/action_log"
         const response = await getWithHeaders(request, endpoint, { Authorization: `Bearer ${accessToken}` }, "Getting ActionLogs") 
 
         // Wtedy endpoint zwraca response o kodzie 200

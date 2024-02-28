@@ -27,7 +27,7 @@ export class AuthService {
             grant_type: "password"
         }
 
-        const endpoint = "https://raygenic-stage.onwelo.net/auth/realms/xrai/protocol/openid-connect/token"
+        const endpoint = "/auth/realms/xrai/protocol/openid-connect/token"
 
         let response: APIResponse = await postWithHeadersAndForm(request, endpoint, headers, form, "Getting token")
 
