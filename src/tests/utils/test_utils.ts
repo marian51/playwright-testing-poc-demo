@@ -36,4 +36,22 @@ export class TestUtils {
             allure.attachment("count of elements", countOfElements.toString(), { contentType: "text/plain" })
         })
     }
+
+    
+    static assertObjectsAreSortedByDateTime(responseObject: any, property: string, direction: string) {
+        const directionWord = direction == 'DESC' ? 'Descending' : direction == "ASC" ? 'Ascending ' : 'Unknown'
+        return allure.step(`Checking if elements are sorted by "${property}" property with "${directionWord}" direction`, async () => {
+            if (direction == 'DESC') {
+                for (let i = 0; i < responseObject.length-1 ; i++) {
+                    expect(new Date(responseObject[i][property]).getTime()).toBeGreaterThan(new Date(responseObject[i+1][property]).getTime())
+                }
+            } else if (direction == 'ASC') {
+                for (let i = 0; i < responseObject.length-1 ; i++) {
+                    expect(new Date(responseObject[i][property]).getTime()).toBeLessThan(new Date(responseObject[i+1][property]).getTime())
+                }
+            } else {
+                throw new Error("Unknown sorting direction!"); 
+            }
+        })
+    }
 }

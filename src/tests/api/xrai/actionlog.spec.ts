@@ -6,12 +6,6 @@ import { TestUtils } from "../../utils/test_utils";
 test.describe("API Action Log basic tests", () => {
     test('@action-log Admin user is able to read action logs', async({ request }) => {
         
-        
-        
-        
-        // I liczba wyświetlonych action logów jest równa 25
-        // I lista wyświetlonych action logów jest posortowana po polu creationTime w kierunku "DESC"
-
         // Zakładając, że użytkownik "Cezary Kruk" z uprawnieniami ADMIN może się autoryzować w API aplikacji
         const accessToken = await AuthService.getAccessToken(request) 
 
@@ -23,6 +17,10 @@ test.describe("API Action Log basic tests", () => {
         TestUtils.assertStatusCode(response)
 
         // I payload responsa zawiera listę action logów
+        // I liczba wyświetlonych action logów jest równa 25
         TestUtils.assertResponseHasProperCountObjects((await response.json()).response, 25)
+
+        // I lista wyświetlonych action logów jest posortowana po polu creationTime w kierunku "DESC"
+        TestUtils.assertObjectsAreSortedByDateTime((await response.json()).response, 'creationTime', 'DESC')
     })
 })
