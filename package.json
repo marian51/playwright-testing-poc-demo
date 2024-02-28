@@ -6,6 +6,7 @@
   "scripts": {
     "test:api": "npx playwright test --grep @api --workers=1 --project=Microsoft_Edge",
     "test:actionLog": "npx playwright test --grep @action-log --workers=1 --project=Microsoft_Edge",
+    "test": "npx playwright test --grep %npm_config_tag% --workers=1 --project=Microsoft_Edge",
     "allureReport": "npx allure serve allure-results"
   },
   "keywords": [],
