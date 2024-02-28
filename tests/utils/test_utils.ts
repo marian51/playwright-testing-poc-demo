@@ -26,4 +26,14 @@ export class TestUtils {
         })
         
     }
+
+    static async assertResponseHasProperCountObjects(responseObject: any, count: number): Promise<void> {
+        return allure.step(`Checking if response object contains ${count} elements`, async () => {
+            const countOfElements = Object.keys(responseObject).length
+            expect(countOfElements).toEqual(count)
+
+            allure.attachment("response object", JSON.stringify(responseObject, null, 4), { contentType: "text/plain" })
+            allure.attachment("count of elements", countOfElements.toString(), { contentType: "text/plain" })
+        })
+    }
 }

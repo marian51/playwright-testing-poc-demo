@@ -21,6 +21,14 @@ export async function postWithBody(request: APIRequestContext, endpoint: string,
     
 }
 
+export async function postWithHeadersAndForm(request: APIRequestContext, endpoint: string, headers: HeadersType, form: FormType, stepMessage: string): Promise<APIResponse> {
+    return allure.step(stepMessage, async () => {
+        let response: APIResponse = await request.post(endpoint, { headers: headers, form: form })
+
+        return response;
+    })
+}
+
 export async function getById(request: APIRequestContext, endpoint: string, stepMessage: string): Promise<APIResponse> {
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint)
@@ -32,6 +40,18 @@ export async function getById(request: APIRequestContext, endpoint: string, step
     })
 
 }
+
+export async function getWithHeaders(request: APIRequestContext, endpoint: string, headers: HeadersType, stepMessage: string): Promise<APIResponse> {
+    return allure.step(stepMessage, async () => {
+        let response: APIResponse = await request.get(endpoint, { headers: headers })
+
+        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
+        allure.attachment("request", await attachments.requestTextAttachment('GET', endpoint, headers, {}), { contentType: "text/html" })
+    
+        return response
+    })
+}
+
 export async function deleteById(request: APIRequestContext, endpoint: string, stepMessage: string): Promise<APIResponse> {
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.delete(endpoint)

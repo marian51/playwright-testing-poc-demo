@@ -13,3 +13,5 @@ export type BasicResponseType = {
     message: string,
     type: string
 }
+
+export type SecretKey = string | undefined
