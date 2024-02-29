@@ -1,7 +1,7 @@
 import test, { APIResponse } from "@playwright/test";
 import { AuthService } from '../../../api/utils/auth_service';
 import { getWithHeaders } from "../../../api/utils/api_utils";
-import { TestUtils } from "../../utils/test_utils";
+import { TestAssertions } from "../../utils/test_assertions";
 
 test.describe("API Action Log basic tests", () => {
     test('@action-log Admin user is able to read action logs', async({ request }) => {
@@ -19,15 +19,15 @@ test.describe("API Action Log basic tests", () => {
         })
         
         await test.step('Wtedy endpoint zwraca response o kodzie 200', () => {
-            TestUtils.assertStatusCode(response, 200)
+            TestAssertions.assertStatusCode(response, 200)
         })
         
         await test.step('I payload responsa zawiera listę action logów\nI liczba wyświetlonych action logów jest równa 25', async () => {
-            TestUtils.assertResponseHasProperCountObjects((await response.json()).response, 25)
+            TestAssertions.assertResponseHasProperCountObjects((await response.json()).response, 25)
         })
         
         await test.step('I lista wyświetlonych action logów jest posortowana po polu creationTime w kierunku "DESC"', async () => {
-            TestUtils.assertObjectsAreSortedByDateTime((await response.json()).response, 'creationTime', 'DESC')
+            TestAssertions.assertObjectsAreSortedByDateTime((await response.json()).response, 'creationTime', 'DESC')
         })       
     })
 })

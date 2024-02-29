@@ -2,7 +2,7 @@ import { APIResponse, expect } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { Store } from "../../api/types/store";
 
-export class TestUtils {
+export class TestAssertions {
 
     static async assertStatusCode(response: APIResponse, expectedCode: number): Promise<void> {
         return allure.step(`Checking if response status code is as expected (equal to ${expectedCode})`, async () => {
