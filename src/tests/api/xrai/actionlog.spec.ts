@@ -32,7 +32,7 @@ test.describe("API Action Log basic tests", () => {
             TestAssertions.assertObjectsAreSortedByDateTime((await response.json()).response, 'creationTime', 'DESC')
         })    
     })
-    
+
     test('@action-log Użytkownik administracyjny może odczytać action logi nie podając instytucji', async({ request }) => {
         
         let accessToken: string;
@@ -86,5 +86,45 @@ test.describe("API Action Log basic tests", () => {
         await test.step('I lista wyświetlonych action logów jest posortowana po polu creationTime w kierunku "DESC"', async () => {
             TestAssertions.assertObjectsAreSortedByDateTime((await response.json()).response, 'creationTime', 'DESC')
         })   
+    })
+
+    test('@action-log Użytkownik administracyjny może odczytać action logi użytkownika bez podania instytucji i logi różnych użytkowników różnią się od siebie', async ({ request }) => {
+        let accessToken: string;
+        let response: APIResponse;
+        let savedResponse: APIResponse;
+        const firstUserFullName: string = "Anna Urban"
+        const secondUserFullName: string = "Łucja Wrzos"
+        
+        await test.step('Zakładając, że użytkownik "Cezary Kruk" z uprawnieniami ADMIN może się autoryzować w API aplikacji', async () => {
+            accessToken = await AuthService.getAccessToken(request) 
+        })
+
+        await test.step(`Kiedy pobiera metodą GET action logi użytkownika "${firstUserFullName}"`, async () => {
+            const endpoint = "/api/dicom-viewer/action_log"
+            const filters: string = await TestUtils.prepareFilters({ userUuid: TestUtils.getUserParam(firstUserFullName, "uuid") })
+            response = await getWithHeaders(request, endpoint + filters, { Authorization: `Bearer ${accessToken}` }, "Getting ActionLogs") 
+        })
+
+        await test.step("I zapisuje wszystkie wyświetlone action logi instytucji", async () => {
+            savedResponse = TestUtils.deepCopy(await response.json())
+        })
+
+        await test.step(`I pobiera metodą GET action logi użytkownika "${secondUserFullName}"`, async () => {
+            const endpoint = "/api/dicom-viewer/action_log"
+            const filters: string = await TestUtils.prepareFilters({ userUuid: TestUtils.getUserParam(secondUserFullName, "uuid") })
+            response = await getWithHeaders(request, endpoint + filters, { Authorization: `Bearer ${accessToken}` }, "Getting ActionLogs") 
+        })
+
+        await test.step('Wtedy endpoint zwraca response o kodzie 200', () => {
+            TestAssertions.assertStatusCode(response, 200)
+        })
+
+        await test.step('I liczba wyświetlonych action logów jest równa 25', async () => {
+            TestAssertions.assertResponseHasProperCountObjects((await response.json()).response, 25)
+        })
+
+        await test.step('I lista wyświetlonych action logów różni się od poprzedniej listy', async () => {
+            TestAssertions.assertObjectAreNotEqual(await response.json(), savedResponse)
+        })
     })
 })

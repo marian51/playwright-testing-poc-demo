@@ -37,6 +37,21 @@ export class TestAssertions {
         })
     }
 
+    static async assertObjectAreNotEqual(firstObject: any, secondObject: any) {
+
+        for (let i = 0; i < firstObject.response.length; i++) {
+            const firstProp = firstObject.response[i]["uuid"]
+            const secondProp = secondObject.response[i]["uuid"]
+
+            expect(secondObject.response[i].hasOwnProperty("uuid")).toBeTruthy()
+            expect(firstProp !== secondProp).toBeTruthy()
+        }
+
+        allure.attachment("First object to compare", JSON.stringify(firstObject, null, 4), { contentType: "text/plain" })
+        allure.attachment("Second object to compare", JSON.stringify(secondObject, null, 4), { contentType: "text/plain" })
+
+    }
+
     
     static assertObjectsAreSortedByDateTime(responseObject: any, property: string, direction: string) {
         const directionWord = direction == 'DESC' ? 'Descending' : direction == "ASC" ? 'Ascending ' : 'Unknown'

@@ -17,5 +17,19 @@
                 "ADMIN"
             ]
         }
-    }
+    },
+    
+    "Łucja Wrzos": {
+        "displayName": "Łucja Wrzos",
+        "firstName": "Łucja",
+        "lastName": "Wrzos",
+        "email": "lucja@wrzos.test",
+        "password": "password",
+        "uuid": "67c8ba13-2d9b-4b8b-bc95-8930067adf78",
+        "institutionRoles": {
+          "AMED_URSUS": [
+            "DOCTOR"
+          ]
+        }
+      }
 }

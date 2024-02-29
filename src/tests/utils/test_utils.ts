@@ -20,4 +20,8 @@ export class TestUtils {
         }
         return paramsString;
     }
+
+    static deepCopy(objectToCopy: any): any {
+        return JSON.parse(JSON.stringify(objectToCopy))
+    }
 }
