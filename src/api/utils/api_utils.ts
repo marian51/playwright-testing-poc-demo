@@ -2,7 +2,7 @@ import { APIRequestContext, APIResponse } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { Attachments } from "../../helpers/textAttachment"
 import { Headers } from "../../helpers/headers";
-import { ParamsType, HeadersType, FormType } from "../types/basicTypes";
+import { HeadersType, FormType } from "../types/basicTypes";
 
 const attachments = new Attachments();
 const headers = new Headers();

@@ -1,0 +1,15 @@
+{
+    "AMED_URSUS": {
+        "uuid": "555c7a26-1b0f-4a88-9531-38f62feb40ab",
+        "alias": "AMED_URSUS",
+        "name": "AMED Warszawa-Ursus",
+        "taxIdentificationNumber": "999-888-77-02",
+        "country": "PL",
+        "address": {
+          "city": "Warszawa",
+          "postalCode": "00-838",
+          "street": "UlicaTestowa",
+          "number": "1"
+        }
+      }
+}
