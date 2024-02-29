@@ -18,7 +18,7 @@ test.describe("API Store CRUD tests", () => {
         const newStoreResponse: APIResponse = await ApiUtils.postWithBody(request, endpoint, newStoreRequest, "Posting new 'store' to the store")
         storeId = (await newStoreResponse.json()).id;
             
-        await TestUtils.assertStatusCode(newStoreResponse);
+        await TestUtils.assertStatusCode(newStoreResponse, 200);
         await TestUtils.assertStoreObjectAreEqual(newStoreRequest, newStoreResponse);
     })
 
@@ -27,7 +27,7 @@ test.describe("API Store CRUD tests", () => {
         
         const storeResponse: APIResponse = await ApiUtils.getById(request, endpoint, "Getting store order by order id")
 
-        await TestUtils.assertStatusCode(storeResponse);
+        await TestUtils.assertStatusCode(storeResponse, 200);
         await TestUtils.assertStoreObjectAreEqual(newStoreRequest, storeResponse);
     })
 
@@ -42,7 +42,7 @@ test.describe("API Store CRUD tests", () => {
             type: "unknown"
         }
 
-        await TestUtils.assertStatusCode(deleteResponse)
+        await TestUtils.assertStatusCode(deleteResponse, 200)
         await TestUtils.assertStoreObjectAreEqual(expectedResponse, deleteResponse)
     })
 })

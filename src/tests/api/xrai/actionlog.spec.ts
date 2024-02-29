@@ -14,7 +14,7 @@ test.describe("API Action Log basic tests", () => {
         const response = await getWithHeaders(request, endpoint, { Authorization: `Bearer ${accessToken}` }, "Getting ActionLogs") 
 
         // Wtedy endpoint zwraca response o kodzie 200
-        TestUtils.assertStatusCode(response)
+        TestUtils.assertStatusCode(response, 200)
 
         // I payload responsa zawiera listę action logów
         // I liczba wyświetlonych action logów jest równa 25

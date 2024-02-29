@@ -4,9 +4,9 @@ import { Store } from "../../api/types/store";
 
 export class TestUtils {
 
-    static async assertStatusCode(response: APIResponse): Promise<void> {
-        return allure.step("Checking if response status code is as expected", async () => {
-             expect(response.status()).toEqual(200);
+    static async assertStatusCode(response: APIResponse, expectedCode: number): Promise<void> {
+        return allure.step(`Checking if response status code is as expected (equal to ${expectedCode})`, async () => {
+             expect(response.status()).toEqual(expectedCode);
              allure.attachment("response status", response.status().toString(), { contentType: "text/plain"})
         })
     }
