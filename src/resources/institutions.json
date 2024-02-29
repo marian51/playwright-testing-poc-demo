@@ -6,10 +6,10 @@
         "taxIdentificationNumber": "999-888-77-02",
         "country": "PL",
         "address": {
-          "city": "Warszawa",
-          "postalCode": "00-838",
-          "street": "UlicaTestowa",
-          "number": "1"
+            "city": "Warszawa",
+            "postalCode": "00-838",
+            "street": "UlicaTestowa",
+            "number": "1"
         }
-      }
+    }
 }

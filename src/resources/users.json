@@ -1,0 +1,21 @@
+{
+    "Anna Urban": {
+        "displayName": "Anna Urban",
+        "firstName": "Anna",
+        "lastName": "Urban",
+        "email": "anna@urban.test",
+        "password": "password",
+        "uuid": "dda67eba-fcbe-4c21-a599-e9f44d802bff",
+        "institutionRoles": {
+            "AMED_URSUS": [
+                "ADMIN"
+            ],
+            "AMED_WOLA": [
+                "DOCTOR"
+            ],
+            "AMED_PRAGA": [
+                "ADMIN"
+            ]
+        }
+    }
+}
