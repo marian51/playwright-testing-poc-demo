@@ -4,8 +4,7 @@ export class Attachments {
 
     async responseTextAttachment(response: APIResponse): Promise<string> {
         const responseCode = response.status();
-        const responseBody = (await response.body()).toString();
-        const responseBodyJson = JSON.stringify(JSON.parse(responseBody), null, 4)
+        const responseBodyJson = JSON.stringify(JSON.parse(await response.text()), null, 4)
         let text = ``
 
         response.headersArray().forEach(h => {
