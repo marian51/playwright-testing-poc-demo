@@ -6,14 +6,15 @@ import { HeadersType, FormType, ParamsType } from "../types/basicTypes";
 
 const attachments = new Attachments();
 const headers = new Headers();
+const baseUrl = process.env.BASE_URL
 
 export async function postWithBody(request: APIRequestContext, endpoint: string, body: Object, stepMessage: string): Promise<APIResponse> {
     return allure.step(stepMessage, async () => {
         const defaultHeaders = headers.defaultHeaders();
         let response: APIResponse = await request.post(endpoint, { headers: defaultHeaders, data: body })
 
-        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
-        allure.attachment("request", await attachments.requestTextAttachment('POST', endpoint, defaultHeaders, body), { contentType: "text/html" })
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
+        allure.attachment("request", await attachments.requestTextAttachment('POST', response.url(), defaultHeaders, body), { contentType: "text/html" })
         allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
 
         return response
@@ -33,7 +34,7 @@ export async function getById(request: APIRequestContext, endpoint: string, step
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint)
 
-        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
         allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
 
         return response 
@@ -45,8 +46,8 @@ export async function getWithHeaders(request: APIRequestContext, endpoint: strin
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint, { headers: headers })
 
-        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
-        allure.attachment("request", await attachments.requestTextAttachment('GET', process.env.BASE_URL + endpoint, headers, {}), { contentType: "text/html" })
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
+        allure.attachment("request", await attachments.requestTextAttachment('GET', response.url(), headers, {}), { contentType: "text/html" })
         allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
     
         return response
@@ -57,10 +58,10 @@ export async function getWithHeadersAndParams(request: APIRequestContext, endpoi
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint, { headers: headers, params: params })
 
-        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
         allure.attachment("request", await attachments.requestTextAttachment('GET', response.url(), headers, {}), { contentType: "text/html" })
         allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
-        
+
         return response
     })
 }
@@ -69,7 +70,7 @@ export async function deleteById(request: APIRequestContext, endpoint: string, s
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.delete(endpoint)
 
-        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
         allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
 
         return response;
