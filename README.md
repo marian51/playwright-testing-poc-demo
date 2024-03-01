@@ -12,7 +12,6 @@ Do uruchomienia projektu trzeba zainstalować:
 
 - nodejs
 - Java 8 lub nowsza (wymagana przez narzędzie *Allure* do generowania raportów)
-- allure commandline (instalowane poprzez `npm ci -g allure-commandline`)
 
 ### Instalacja
 
@@ -20,7 +19,7 @@ Do uruchomienia projektu trzeba zainstalować:
 2. Przejdź do pobranego katalogu projektu
 3. Przełącz się na odpowiedni branch (polecenie `git checkout <nazwa_brancza>`)
 4. Zainstaluj wymagane biblioteki i zależności (polecenie `npm install`, zainstaluje to m.in. Playwrighta)
-5. Zainstaluj *przeglądarki Playwright'a* (Playwright posiada własne implementacje przeglądarek, które są wykorzystywane do testów, również testów API)
+5. Zainstaluj *przeglądarki Playwright'a* (polecenie `npx playwright install`; Playwright posiada własne implementacje przeglądarek, które są wykorzystywane do testów, również testów API)
 
 ### Przed uruchomieniem
 
@@ -42,18 +41,34 @@ W pliku `package.json`, w polu `scripts` znajdują się *predefiniowane* skrypty
     
         npm run test:api
 
+<br/>
+        
 - Uruchomienie wszystkich testów zawierających w nazwie frazę `test:action-log`:
 
         npm run test:actionLog
 
 
-- Wygenerowanie raportu Allure (po wygenerowaniu się, raport zostanie otworzony automatycznie w domyślnej przeglądarce):
+<br/>
+        
+- Wygenerowanie raportu Allure do osobnego pliku (domyślnie raport pojawi się w lokalizacji `./allure-report/index.html`)
 
         npm run allure-report
 
+<br/>
+        
+- Wygenerowanie raportu Allure jako "serwer" (wygenerowany raport zostanie otworzony automatycznie w domyślnej przeglądarce, nie będzie osobnym plikiem):
+
+        npm run show-allure-report
+
+<br/>
+        
 - Uruchomienie testów z podaniem taga `<nazwa_taga>` (zostaną uruchomione tylko te testy, które mają podaną frazę w nazwie; obecnie możliwe jest podanie tylko jednego taga):
 
-        npm run test --tag='<nazwa_taga>''
+        npm run test --tag='<nazwa_taga>'
 
+    Na przykład uruchomienie komendy `npm run test --tag='@examination'` uruchomi tylko te testy, w których nazwie znajduje się fraza `@examination`. Jeżeli podana fraza nie znajdzie się w nazwie któregokolwiek testu, nic się nie uruchomi.
+
+<br/>
+        
 **❗Uwaga** <br/>W przypadku dwóch pierwszych komend, zmiana ich treści nie wywoła uruchomienia innych testów, np. komenda `npm run test:gui` nie zostanie uruchomiona, bo nie została *na sztywno* zapisana w pliku `package.json`. Komendy te są wciąż w fazie rozwojowej.
 

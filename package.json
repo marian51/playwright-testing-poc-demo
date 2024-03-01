@@ -7,7 +7,8 @@
     "test:api": "npx playwright test --grep @api --workers=1 --project=Microsoft_Edge",
     "test:actionLog": "npx playwright test --grep @action-log --workers=1 --project=Microsoft_Edge",
     "test": "npx playwright test --grep %npm_config_tag% --workers=1 --project=Microsoft_Edge",
-    "allure-report": "npx allure serve allure-results"
+    "show-allure-report": "npx allure serve allure-results",
+    "allure-report": "npx allure generate --single-file --clean ./allure-results"
   },
   "keywords": [],
   "author": "",
