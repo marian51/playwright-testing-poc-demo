@@ -46,7 +46,8 @@ export async function getWithHeaders(request: APIRequestContext, endpoint: strin
         let response: APIResponse = await request.get(endpoint, { headers: headers })
 
         allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
-        allure.attachment("request", await attachments.requestTextAttachment('GET', endpoint, headers, {}), { contentType: "text/html" })
+        allure.attachment("request", await attachments.requestTextAttachment('GET', process.env.BASE_URL + endpoint, headers, {}), { contentType: "text/html" })
+        allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
     
         return response
     })
@@ -57,8 +58,9 @@ export async function getWithHeadersAndParams(request: APIRequestContext, endpoi
         let response: APIResponse = await request.get(endpoint, { headers: headers, params: params })
 
         allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
-        allure.attachment("request", await attachments.requestTextAttachment('GET', endpoint, headers, {}), { contentType: "text/html" })
-    
+        allure.attachment("request", await attachments.requestTextAttachment('GET', response.url(), headers, {}), { contentType: "text/html" })
+        allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
+        
         return response
     })
 }
