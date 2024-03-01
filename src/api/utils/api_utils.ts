@@ -2,7 +2,7 @@ import { APIRequestContext, APIResponse } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { Attachments } from "../../helpers/textAttachment"
 import { Headers } from "../../helpers/headers";
-import { HeadersType, FormType } from "../types/basicTypes";
+import { HeadersType, FormType, ParamsType } from "../types/basicTypes";
 
 const attachments = new Attachments();
 const headers = new Headers();
@@ -44,6 +44,17 @@ export async function getById(request: APIRequestContext, endpoint: string, step
 export async function getWithHeaders(request: APIRequestContext, endpoint: string, headers: HeadersType, stepMessage: string): Promise<APIResponse> {
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint, { headers: headers })
+
+        allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
+        allure.attachment("request", await attachments.requestTextAttachment('GET', endpoint, headers, {}), { contentType: "text/html" })
+    
+        return response
+    })
+}
+
+export async function getWithHeadersAndParams(request: APIRequestContext, endpoint: string, headers: HeadersType, params: ParamsType, stepMessage: string): Promise<APIResponse> {
+    return allure.step(stepMessage, async () => {
+        let response: APIResponse = await request.get(endpoint, { headers: headers, params: params })
 
         allure.attachment("endpoint", endpoint, { contentType: "text/plain" })
         allure.attachment("request", await attachments.requestTextAttachment('GET', endpoint, headers, {}), { contentType: "text/html" })

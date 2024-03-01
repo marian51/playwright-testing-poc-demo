@@ -21,6 +21,12 @@ export class TestUtils {
         return paramsString;
     }
 
+    static prepareParam(paramKey: string, paramValue: string | number): ParamsType {
+        return {
+            [paramKey]: paramValue
+        }
+    }
+
     static deepCopy(objectToCopy: any): any {
         return JSON.parse(JSON.stringify(objectToCopy))
     }

@@ -69,4 +69,10 @@ export class TestAssertions {
             }
         })
     }
+    
+    static assertArrayHasNumberOfElements(response: any, size: number) {
+        expect(response.response.length).toEqual(size)
+
+        allure.attachment("Response", JSON.stringify(response, null, 4), { contentType: "text/plain" })
+    }
 }

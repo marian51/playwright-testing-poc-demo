@@ -1,8 +1,9 @@
 import test, { APIResponse } from "@playwright/test";
 import { AuthService } from '../../../api/utils/auth_service';
-import { getWithHeaders } from "../../../api/utils/api_utils";
+import { getWithHeaders, getWithHeadersAndParams } from "../../../api/utils/api_utils";
 import { TestAssertions } from "../../utils/test_assertions";
 import { TestUtils } from "../../utils/test_utils";
+import { ParamsType } from "../../../api/types/basicTypes";
 
 test.describe("API Action Log basic tests", () => {
     test('@action-log Użytkownik administracyjny może odczytać action logi instytucji', async({ request }) => {
@@ -127,4 +128,35 @@ test.describe("API Action Log basic tests", () => {
             TestAssertions.assertObjectAreNotEqual(await response.json(), savedResponse)
         })
     })
+
+    const examples = {
+        param: "chunkSize",
+        values: [1, 21, 30]
+    }
+    for (const chunkSize of examples.values) {
+        test(`@action-log Użytkownik administracyjcny może odczytać action logi instytucji decydując ile elementów (${chunkSize}) ma być zwróconych`, async ({ request }) => {
+            let accessToken: string;
+            let response: APIResponse;
+            const institutionAlias: string = "AMED_URSUS"
+
+            await test.step('Zakładając, że użytkownik "Cezary Kruk" z uprawnieniami ADMIN może się autoryzować w API aplikacji', async () => {
+                accessToken = await AuthService.getAccessToken(request) 
+            })
+
+            await test.step(`Kiedy pobiera metodą GET action logi instytucji z aliasem "${institutionAlias}" dodając parametr "${examples.param}=${chunkSize}"`, async () => {
+                const endpoint = "/api/dicom-viewer/action_log"
+                const params: ParamsType = TestUtils.prepareParam(examples.param, chunkSize)
+                response = await getWithHeadersAndParams(request, endpoint, { Authorization: `Bearer ${accessToken}` }, params, "Getting ActionLogs") 
+            })
+
+            await test.step('Wtedy endpoint zwraca response o kodzie 200', () => {
+                TestAssertions.assertStatusCode(response, 200)
+            })
+
+            await test.step(`I liczba wyświetlonych action logów jest równa "${chunkSize}"`, async () => {
+                TestAssertions.assertArrayHasNumberOfElements(await response.json(), chunkSize);
+            })
+        })
+    }
+    
 })
