@@ -34,7 +34,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
     // baseURL: 'https://petstore.swagger.io/v2',
-    baseURL: 'https://raygenic-stage.onwelo.net',
+    baseURL: process.env.BASE_URL,
     extraHTTPHeaders: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
