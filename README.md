@@ -2,7 +2,7 @@
 
 ## O projekcie
 
-Jest to *demo* projekt oparty na frameworku **Playwirght**, służący do tworzenia i przeprowadzania testów automatycznych. Obecnie zawiera testy API strony *Pet Store* (testy endpointu `/v2/store/order/`) oraz parę testów XRAI, w zależności od brancha.
+Jest to *demo* projekt oparty na frameworku **Playwirght**, służący do tworzenia i przeprowadzania testów automatycznych. Obecnie zawiera parę testów API strony *Pet Store* (testy endpointu `/v2/store/order/`) oraz parę testów API serwisu ClickUp, w zależności od brancha.
 
 ## Uruchomienie projektu
 
