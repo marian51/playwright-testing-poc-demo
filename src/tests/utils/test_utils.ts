@@ -38,6 +38,6 @@ export class TestUtils {
     }
 
     static generateNewSpace(newSpaceName: string): void {
-        
+
     }
 }
