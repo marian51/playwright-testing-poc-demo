@@ -1,6 +1,6 @@
 import { APIRequestContext, APIResponse } from "@playwright/test"
 import { FormType, HeadersType, SecretKey } from "../types/basicTypes"
-import { postWithHeadersAndForm } from "./api_utils"
+import { getWithHeaders, postWithHeadersAndForm } from "./api_utils"
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -8,10 +8,10 @@ dotenv.config()
 export class AuthService {
     static async getAccessToken(request: APIRequestContext): Promise<string> {
 
-        const secretUsername: SecretKey = process.env.XRAI_SECRET_USERNAME
-        const secretPassword: SecretKey = process.env.XRAI_SECRET_PASSWORD
-        const userUsername: SecretKey = process.env.XRAI_ACTIONLOG_USERNAME as string
-        const userPassword: SecretKey = process.env.XRAI_ACTIONLOG_PASSWORD as string
+        const secretUsername: SecretKey = process.env.SECRET_USERNAME
+        const secretPassword: SecretKey = process.env.SECRET_PASSWORD
+        const userUsername: SecretKey = process.env.USERNAME as string
+        const userPassword: SecretKey = process.env.PASSWORD as string
 
         const credentialsBase64: string = btoa(secretUsername + ":" + secretPassword)
 
@@ -33,4 +33,12 @@ export class AuthService {
 
         return (await response.json()).access_token
     } 
+
+    static getApiKey(): string {
+        return process.env.API_KEY as string
+    }
+
+    static async getUserInfo(request: APIRequestContext, endpoint: string, apiKey: string): Promise<APIResponse> {
+        return await getWithHeaders(request, endpoint, { Authorization: apiKey }, "Getting user info")
+    }
 }

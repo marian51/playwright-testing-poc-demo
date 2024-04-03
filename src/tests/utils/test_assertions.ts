@@ -75,4 +75,13 @@ export class TestAssertions {
 
         allure.attachment("Response", JSON.stringify(response, null, 4), { contentType: "text/plain" })
     }
+
+    static assertObjectHasKeyAndValue(response: APIResponse, key: string, value: string) {
+        return allure.step(`Checking if given object has key '${key}' and its value '${value}'`, async () => {
+            expect(response[key]).toBeTruthy()
+            expect(response[key]).toEqual(value)
+
+            allure.attachment("key and value", `key = ${key},\nvalue = ${value}`, { contentType: "text/plain"})
+        })
+    }
 }

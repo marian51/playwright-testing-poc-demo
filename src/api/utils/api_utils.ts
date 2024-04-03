@@ -30,6 +30,18 @@ export async function postWithHeadersAndForm(request: APIRequestContext, endpoin
     })
 }
 
+export async function postWithHeadersAndBody(request: APIRequestContext, endpoint: string, headers: HeadersType, body: object, stepMessage: string): Promise<APIResponse> {
+    return allure.step(stepMessage, async () => {
+        let response: APIResponse = await request.post(endpoint, { headers: headers, data: body })
+
+        allure.attachment("endpoint", baseUrl + endpoint, { contentType: "text/plain" })
+        allure.attachment("request", await attachments.requestTextAttachment('POST', response.url(), headers, body), { contentType: "text/html" })
+        allure.attachment("response", await attachments.responseTextAttachment(response), { contentType: "text/html" })
+
+        return response;
+    })
+}
+
 export async function getById(request: APIRequestContext, endpoint: string, stepMessage: string): Promise<APIResponse> {
     return allure.step(stepMessage, async () => {
         let response: APIResponse = await request.get(endpoint)

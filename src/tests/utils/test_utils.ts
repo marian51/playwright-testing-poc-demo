@@ -30,4 +30,14 @@ export class TestUtils {
     static deepCopy(objectToCopy: any): any {
         return JSON.parse(JSON.stringify(objectToCopy))
     }
+
+    static checkIfPropertyIsNotEmpty(object: Object, property: string): void {
+        if (object[property] == undefined) {
+            throw new Error(`The property '${property}' is undefined!`)
+        }
+    }
+
+    static generateNewSpace(newSpaceName: string): void {
+        
+    }
 }
