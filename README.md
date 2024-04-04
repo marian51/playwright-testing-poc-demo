@@ -1,74 +1,74 @@
 # Playwright 🎭
 
-## O projekcie
+## About project
 
-Jest to *demo* projekt oparty na frameworku **Playwirght**, służący do tworzenia i przeprowadzania testów automatycznych. Obecnie zawiera parę testów API strony *Pet Store* (testy endpointu `/v2/store/order/`) oraz parę testów API serwisu ClickUp, w zależności od brancha.
+This is a *demo* project based on the **Playwirght** framework for creating and running automated tests. It currently includes a pair of *Pet Store* site API tests (endpoint `/v2/store/order/` tests) and a pair of ClickUp site API tests, depending on the branch.
 
-## Uruchomienie projektu
+## Project startup
 
-### Wymagania
+### Requirements
 
-Do uruchomienia projektu trzeba zainstalować:
+To run the project, you need to install:
 
 - nodejs
-- Java 8 lub nowsza (wymagana przez narzędzie *Allure* do generowania raportów)
+- Java 8 or later (required by *Allure* tool to generate reports)
 
-### Instalacja
+### Installation
 
-1. Pobierz (sklonuj) niniejsze repozytorium do lokalnego folderu
-2. Przejdź do pobranego katalogu projektu
-3. Przełącz się na odpowiedni branch (polecenie `git checkout <nazwa_brancza>`)
-4. Zainstaluj wymagane biblioteki i zależności (polecenie `npm install`, zainstaluje to m.in. Playwrighta)
-5. Zainstaluj *przeglądarki Playwright'a* (polecenie `npx playwright install`; Playwright posiada własne implementacje przeglądarek, które są wykorzystywane do testów, również testów API)
+1. Download (clone) this repository to a local folder
+2. Navigate to the downloaded project directory
+3. Switch to the appropriate branch (command `git checkout <branch_name>`)
+4. Install the required libraries and dependencies (command `npm install`, this will install Playwright and others)
+5. Install Playwright's *browsers* (command `npx playwright install`; Playwright has its own implementations of browsers that are used for testing, including API testing)
 
-### Przed uruchomieniem
+### Before running
 
-- Odczyt danych wrażliwych w projekcie, takich jak dane logowania (login i hasło), odbywa się z wykorzystaniem narzędzia `dotenv` - dane są odczytywane z pliku `.env` znajdującego się w podstawowym folderze projektu. Plik ten ze względów bezpieczeństwa jest ignorowany przez git i nie znajduje się w projekcie. Trzeba dodać go z innego źródła.
+- Reading sensitive data in the project, such as login data (username and password, API key etc.), is done using the `dotenv` tool - the data is read from the `.env` file located in the project's root folder. This file is ignored by git for security reasons and is not in the project. It has to be added from another source.
 
-### Uruchomienie
+### Launching
 
-Najważniejsze ustawienia znajdują się w pliku `playwright.config.ts`. Tam można ustawić np. wykorzystywane przeglądarki, czy bazowy adres URL. Szczegóły ustawień można znaleźć w dokumentacji Playwrighta. W obecnej wersji niniejszego projektu włączona jest tylko przeglądarka Edge, z jednym workerem (czyli uruchamia jeden test na raz).
+The most important settings are in the `playwright.config.ts` file. There you can set, for example, the browsers used, or the base URL. Details of the settings can be found in the Playwright documentation. In the current version of this project, only the Edge browser is enabled, with one worker (that is, it runs one test at a time).
 
-Podstawowa komenda do uruchomienia testów to:
+The basic command to run the tests is:
 
     npx playwright test
 
-Może ona przyjmować różne argumenty i parametry - szczegóły znajdują się w dokumentacji Playwrighta.
+It can take different arguments and parameters - see Playwright's documentation for details.
 
-W pliku `package.json`, w polu `scripts` znajdują się *predefiniowane* skrypty. Są to aliasy dłuższych konfiguracji komend uruchamiających. Należy je podać jako argument komendy `npx run`, i tak jest możliwe:
+In the `package.json` file, the `scripts` field contains *predefined* scripts. These are aliases for longer configurations of run commands. They must be specified as an argument to the `npx run` command, and so are possible:
 
-- Uruchomienie wszystkich testów zawierające w nazwie frazę `@api`:
+- Run all tests containing the phrase `@api` in the name:
     
         npm run test:api
 
 <br/>
         
-- Uruchomienie wszystkich testów zawierających w nazwie frazę `test:action-log`:
+- Run all tests containing the phrase `test:action-log` in the name:
 
         npm run test:actionLog
 
 
 <br/>
         
-- Wygenerowanie raportu Allure do osobnego pliku (domyślnie raport pojawi się w lokalizacji `./allure-report/index.html`)
+- Generate the Allure report into a separate file (by default, the report will appear in the location `./allure-report/index.html`)
 
         npm run allure-report
 
 <br/>
         
-- Wygenerowanie raportu Allure jako "serwer" (wygenerowany raport zostanie otworzony automatycznie w domyślnej przeglądarce, nie będzie osobnym plikiem):
+- Generate the Allure report as a "server" (the generated report will be opened automatically in the default browser, it will not be a separate file):
 
         npm run show-allure-report
 
 <br/>
         
-- Uruchomienie testów z podaniem taga `<nazwa_taga>` (zostaną uruchomione tylko te testy, które mają podaną frazę w nazwie; obecnie możliwe jest podanie tylko jednego taga):
+- Run tests by specifying the tag `<name_tag>` (only those tests with the specified phrase in their name will be run; currently only one tag can be specified):
 
         npm run test --tag='<nazwa_taga>'
 
-    Na przykład uruchomienie komendy `npm run test --tag='@examination'` uruchomi tylko te testy, w których nazwie znajduje się fraza `@examination`. Jeżeli podana fraza nie znajdzie się w nazwie któregokolwiek testu, nic się nie uruchomi.
+    For example, running the command `npm run test --tag='@examination'` will run only those tests whose name contains the phrase `@examination`. If the specified phrase is not in the name of any test, nothing will run.
 
 <br/>
         
-**❗Uwaga** <br/>W przypadku dwóch pierwszych komend, zmiana ich treści nie wywoła uruchomienia innych testów, np. komenda `npm run test:gui` nie zostanie uruchomiona, bo nie została *na sztywno* zapisana w pliku `package.json`. Komendy te są wciąż w fazie rozwojowej.
+**❗Warning** <br/>In the case of the first two commands, changing their contents will not trigger the running of other tests, e.g. the `npm run test:gui` command will not be run because it has not been *hardly* saved in the `package.json` file. These commands are still in development.
 
