@@ -1,29 +1,43 @@
-import { APIResponse, expect } from "@playwright/test";
-import { allure } from "allure-playwright";
-import { Store } from "../../api/types/store";
+import { ParamsType } from "../../api/types/basicTypes";
+import institutions from "../../resources/institutions.json"
+import users from "../../resources/users.json";
 
 export class TestUtils {
 
-    static async assertStatusCode(response: APIResponse): Promise<void> {
-        return allure.step("Checking if response status code is as expected", async () => {
-             expect(response.status()).toEqual(200);
-             allure.attachment("response status", response.status().toString(), { contentType: "text/plain"})
-        })
+    static getInstitutionParam(institutionAlias: string, param: string): string {
+        const institution = institutions[institutionAlias]
+        return institution[param]
     }
 
-    static async assertStoreObjectAreEqual(requestObject: Store, responseObject: APIResponse): Promise<void> {
-        return allure.step("Checking if response object is as request object", async () => {
+    static getUserParam(userFullName: string, param: string): string {
+        return users[userFullName][param]
+    }
 
-            const responseObjectJson = await responseObject.json()
+    static async prepareFilters(params: ParamsType): Promise<string> {
+        let paramsString = '?'
+        for (const key in params) {
+            paramsString = paramsString + 'filterBy=' + key + "&filterValue=" + params[key] + "&"
+        }
+        return paramsString;
+    }
 
-            for (const prop in responseObjectJson) {
-                expect(requestObject.hasOwnProperty(prop)).toBeTruthy()
-                expect(responseObjectJson[prop]).toEqual(requestObject[prop])
-            }
+    static prepareParam(paramKey: string, paramValue: string | number): ParamsType {
+        return {
+            [paramKey]: paramValue
+        }
+    }
 
-            allure.attachment("expected object", JSON.stringify(requestObject, null, 4), { contentType: 'text/plain' })
-            allure.attachment("response object", JSON.stringify(responseObjectJson, null, 4), { contentType: 'text/plain' })
-        })
-        
+    static deepCopy(objectToCopy: any): any {
+        return JSON.parse(JSON.stringify(objectToCopy))
+    }
+
+    static checkIfPropertyIsNotEmpty(object: Object, property: string): void {
+        if (object[property] == undefined) {
+            throw new Error(`The property '${property}' is undefined!`)
+        }
+    }
+
+    static generateNewSpace(newSpaceName: string): void {
+
     }
 }

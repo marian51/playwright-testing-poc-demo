@@ -11,7 +11,7 @@ import { defineConfig, devices } from 'playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,7 +34,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
     // baseURL: 'https://petstore.swagger.io/v2',
-    baseURL: 'https://petstore.swagger.io',
+    baseURL: process.env.BASE_URL,
     extraHTTPHeaders: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'

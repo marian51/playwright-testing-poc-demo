@@ -4,8 +4,7 @@ export class Attachments {
 
     async responseTextAttachment(response: APIResponse): Promise<string> {
         const responseCode = response.status();
-        const responseBody = (await response.body()).toString();
-        const responseBodyJson = JSON.stringify(JSON.parse(responseBody), null, 4)
+        const responseBodyJson = JSON.stringify(JSON.parse(await response.text()), null, 4)
         let text = ``
 
         response.headersArray().forEach(h => {
@@ -21,7 +20,7 @@ export class Attachments {
         return result;
     }
 
-    async requestTextAttachment(method: string, endpoint: string, headers: { [key: string]: string; }, body: Object): Promise<string> {
+    async requestTextAttachment(method: string, endpoint: string, headers: { [key: string]: string; }, body?: Object): Promise<string> {
         let text = ''
         for (let h in headers) {
             text = text + h + ": " + headers[h] + '<br/>'

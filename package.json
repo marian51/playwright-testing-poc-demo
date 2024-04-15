@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test:api": "npx playwright test --grep @api --workers=1 --project=Microsoft_Edge",
-    "allureReport": "npx allure serve allure-results"
+    "test:actionLog": "npx playwright test --grep @action-log --workers=1 --project=Microsoft_Edge",
+    "test": "npx playwright test --grep %npm_config_tag% --workers=1 --project=Microsoft_Edge",
+    "show-allure-report": "npx allure serve allure-results",
+    "allure-report": "npx allure generate --single-file --clean ./allure-results"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +18,8 @@
     "@playwright/test": "^1.41.2",
     "@types/node": "^20.11.17",
     "allure-playwright": "^2.12.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }

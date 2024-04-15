@@ -5,6 +5,7 @@ node_modules/
 /playwright/.cache/
 
 allure-results/
+allure-report/
 .vscode
 
 package-lock.json
