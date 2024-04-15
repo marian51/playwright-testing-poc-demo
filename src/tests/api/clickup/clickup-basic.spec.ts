@@ -6,9 +6,12 @@ import { Space } from "../../../api/types/clickUpTypes";
 import { postWithHeadersAndBody } from "../../../api/utils/api_utils";
 import { TestAssertions } from "../../utils/test_assertions";
 import { spaceEndpoint, userEndpoint } from "../../../api/endpoints/clickUp_endpoints";
+import { allure } from "allure-playwright";
 
 test.describe("API ClickUp basic functionalities tests", () => {
-    test("@api-clickup Create space and check if space is created", async({ request }) => {
+    test("@api-clickup @clickup Create space and check if space is created", async({ request }) => {
+        await allure.tag("API")
+
         let apiKey: string;
         let newSpace: Space;
         let response: APIResponse;
