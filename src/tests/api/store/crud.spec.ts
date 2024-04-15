@@ -5,6 +5,7 @@ import { Store } from '../../../api/types/store';
 import { TestUtils } from '../../utils/test_utils';
 import * as ApiUtils from '../../../api/utils/api_utils'
 import { BasicResponseType } from '../../../api/types/basicTypes';
+import { TestAssertions } from "../../utils/test_assertions";
 
 test.describe("API Store CRUD tests", () => {
     let storeId: number;
@@ -18,8 +19,8 @@ test.describe("API Store CRUD tests", () => {
         const newStoreResponse: APIResponse = await ApiUtils.postWithBody(request, endpoint, newStoreRequest, "Posting new 'store' to the store")
         storeId = (await newStoreResponse.json()).id;
             
-        await TestUtils.assertStatusCode(newStoreResponse, 200);
-        await TestUtils.assertStoreObjectAreEqual(newStoreRequest, newStoreResponse);
+        await TestAssertions.assertStatusCode(newStoreResponse, 200);
+        await TestAssertions.assertStoreObjectAreEqual(newStoreRequest, newStoreResponse);
     })
 
     test("@api Read store order by id", async ({ request }) => {
@@ -27,8 +28,8 @@ test.describe("API Store CRUD tests", () => {
         
         const storeResponse: APIResponse = await ApiUtils.getById(request, endpoint, "Getting store order by order id")
 
-        await TestUtils.assertStatusCode(storeResponse, 200);
-        await TestUtils.assertStoreObjectAreEqual(newStoreRequest, storeResponse);
+        await TestAssertions.assertStatusCode(storeResponse, 200);
+        await TestAssertions.assertStoreObjectAreEqual(newStoreRequest, storeResponse);
     })
 
     test("@api Delete store order by id", async ({ request }) => {
@@ -42,7 +43,7 @@ test.describe("API Store CRUD tests", () => {
             type: "unknown"
         }
 
-        await TestUtils.assertStatusCode(deleteResponse, 200)
-        await TestUtils.assertStoreObjectAreEqual(expectedResponse, deleteResponse)
+        await TestAssertions.assertStatusCode(deleteResponse, 200)
+        await TestAssertions.assertStoreObjectAreEqual(expectedResponse, deleteResponse)
     })
 })
