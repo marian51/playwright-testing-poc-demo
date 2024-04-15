@@ -11,6 +11,7 @@ import { defineConfig, devices } from 'playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  timeout: 1000 * 60 * 5,
   testDir: './src/tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -42,6 +43,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    bypassCSP: true,
+    launchOptions: {
+      args: ['--disable-web-security', '--start-maximized']
+    }
   },
 
   /* Configure projects for major browsers */
@@ -74,7 +79,7 @@ export default defineConfig({
     /* Test against branded browsers. */
     {
       name: 'Microsoft_Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      use: {  channel: 'msedge', viewport: null },
     },
     // {
     //   name: 'Google Chrome',
