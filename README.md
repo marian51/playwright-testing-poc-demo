@@ -64,7 +64,15 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
         
 - Run tests by specifying the tag `<name_tag>` (only those tests with the specified phrase in their name will be run; currently only one tag can be specified):
 
-        npm run test --tag='<nazwa_taga>'
+        npm run test --tag='<tag_name>'
+
+    For example, running the command `npm run test --tag='@examination'` will run only those tests whose name contains the phrase `@examination`. If the specified phrase is not in the name of any test, nothing will run.
+
+<br/>
+
+- Run tests by specifying the tag `<name_tag>` as above, but in **headed** mode (borwser is opening):
+
+        npm run test-headed --tag='<tag_name>'
 
     For example, running the command `npm run test --tag='@examination'` will run only those tests whose name contains the phrase `@examination`. If the specified phrase is not in the name of any test, nothing will run.
 
