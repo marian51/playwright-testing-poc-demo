@@ -72,3 +72,20 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
         
 **❗Warning** <br/>In the case of the first two commands, changing their contents will not trigger the running of other tests, e.g. the `npm run test:gui` command will not be run because it has not been *hardly* saved in the `package.json` file. These commands are still in development.
 
+## Examples
+
+- Example of running GUI test for checking if creating new ClickUp space works correct
+
+<img src="./assets/readme-gif.gif" />
+
+</br>
+
+- Example of report - results of API test (showing steps, enpoints, requests etc.)
+
+<img src="./assets/screenshot-1.png" />
+
+</br>
+
+- Example of report - results of GUI test (showing steps, screenshots etc.)
+
+<img src="./assets/screenshot-2.png" />
