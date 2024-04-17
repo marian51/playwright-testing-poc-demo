@@ -5,11 +5,12 @@ import { LeftSideBar } from "../../../gui/pages/LeftSideBar";
 import { CreateSpaceModal } from "../../../gui/pages/CreateSpaceModal";
 import { MainView } from "../../../gui/pages/MainView";
 import { allure } from "allure-playwright";
+import { Hooks } from "../../../helpers/hooks";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
     test("@gui-clickup @clickup Create space and check if space is created", async ({
-        page,
+        page, request
     }) => {
         await allure.tag("GUI")
 
@@ -48,5 +49,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         await test.step("Then new space is created", async () => {
             await leftSideBar.assertThatLeftSideBarContainsElement(newSpaceName);
         });
+
+        await Hooks.deleteSpaceByName(request, newSpaceName);
     });
 });
