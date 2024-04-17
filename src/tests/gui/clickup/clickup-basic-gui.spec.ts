@@ -5,7 +5,7 @@ import { LeftSideBar } from "../../../gui/pages/LeftSideBar";
 import { CreateSpaceModal } from "../../../gui/pages/CreateSpaceModal";
 import { MainView } from "../../../gui/pages/MainView";
 import { allure } from "allure-playwright";
-import { GuiHelpers } from "../../../helpers/gui_hooks";
+import { GuiHelpers } from "../../../helpers/hooks";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
