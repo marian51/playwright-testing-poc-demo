@@ -2,7 +2,7 @@ import { APIRequestContext } from "@playwright/test";
 import { spaceDeleteEndpoint, spaceEndpoint } from "../api/endpoints/clickUp_endpoints";
 import { AuthService } from "../api/utils/auth_service";
 
-export class GuiHelpers {
+export class Hooks {
     static async deleteSpaceByName(request: APIRequestContext, spaceName: string) {
         const teamId = process.env.BASE_TEAM_ID as string
         const endpoint = spaceEndpoint.replace('TEAM_ID', teamId)

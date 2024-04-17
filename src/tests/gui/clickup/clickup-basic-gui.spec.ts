@@ -5,7 +5,7 @@ import { LeftSideBar } from "../../../gui/pages/LeftSideBar";
 import { CreateSpaceModal } from "../../../gui/pages/CreateSpaceModal";
 import { MainView } from "../../../gui/pages/MainView";
 import { allure } from "allure-playwright";
-import { GuiHelpers } from "../../../helpers/hooks";
+import { Hooks } from "../../../helpers/hooks";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
@@ -50,6 +50,6 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await leftSideBar.assertThatLeftSideBarContainsElement(newSpaceName);
         });
 
-        await GuiHelpers.deleteSpaceByName(request, newSpaceName);
+        await Hooks.deleteSpaceByName(request, newSpaceName);
     });
 });
