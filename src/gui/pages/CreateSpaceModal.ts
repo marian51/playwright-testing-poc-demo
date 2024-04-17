@@ -1,5 +1,6 @@
 import test, { Locator, Page, expect } from "@playwright/test";
 import { allure } from "allure-playwright";
+import { CommonMethods } from "../common_methods";
 
 export class CreateSpaceModal {
     readonly page: Page;
@@ -18,7 +19,7 @@ export class CreateSpaceModal {
 
     async typeIntoNewSpaceNameInput(text: string) {
         return await test.step(`Typing 'text' into new space name input`, async () => {
-            await this.newSpaceNameInput.fill(text)
+            await CommonMethods.typeIntoField(this.newSpaceNameInput, text)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -27,7 +28,7 @@ export class CreateSpaceModal {
 
     async clickOnContinueButton() {
         return await test.step(`Clicking on 'continue' button`, async () => {
-            await this.continueButton.click()
+            await CommonMethods.clickOnElement(this.continueButton)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -36,7 +37,7 @@ export class CreateSpaceModal {
 
     async clickOnCreateSpaceButton() {
         return await test.step(`Clicking on 'Create Space' button on modal`, async () => {
-            await this.createSpaceButton.click()
+            await CommonMethods.clickOnElement(this.createSpaceButton)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
