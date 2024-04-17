@@ -2,8 +2,14 @@ import { Locator } from "@playwright/test";
 
 export class CommonMethods {
 
-    private static async markWithColor(element: Locator) {
+    static async markWithColor(element: Locator) {
         await element.evaluate(node => node.style.backgroundColor = 'lightblue')
+    }
+
+    static async markElementsWithColor(elements: Locator) {
+        await elements.evaluateAll(node => node.forEach(elem => {
+            elem.style.backgroundColor = 'lightblue'
+        }));
     }
 
     static async typeIntoField(element: Locator, text: string) {
