@@ -7,6 +7,7 @@ import { postWithHeadersAndBody } from "../../../api/utils/api_utils";
 import { TestAssertions } from "../../utils/test_assertions";
 import { spaceEndpoint, userEndpoint } from "../../../api/endpoints/clickUp_endpoints";
 import { allure } from "allure-playwright";
+import { Hooks } from "../../../helpers/hooks";
 
 test.describe("API ClickUp basic functionalities tests", () => {
     test("@api-clickup @clickup Create space and check if space is created", async({ request }) => {
@@ -42,5 +43,7 @@ test.describe("API ClickUp basic functionalities tests", () => {
         await test.step("And created space has name as given", async () => {
             TestAssertions.assertObjectHasKeyAndValue(await response.json(), "name", newSpaceName);
         })
+
+        await Hooks.deleteSpaceByName(request, newSpaceName);
     })
 })
