@@ -6,23 +6,23 @@ class CustomReporter implements Reporter {
     }
 
     onBegin(config: FullConfig<{}, {}>, suite: Suite): void {
-        console.log(`${new Date().toLocaleString()} Starting the run with ${suite.allTests().length} tests`)
+        console.log(`${new Date().toLocaleString()} - Starting the run with ${suite.allTests().length} tests`)
     }
 
     onTestBegin(test: TestCase, result: TestResult): void {
-        console.log(`${new Date().toLocaleString()} Starting test: ${test.title}`)
+        console.log(`${new Date().toLocaleString()} - Starting test: ${test.title}`)
     }
 
     onTestEnd(test: TestCase, result: TestResult): void {
-        console.log(`${new Date().toLocaleString()} Finished test: ${test.title}, the result is: ${result.status}`)
+        console.log(`${new Date().toLocaleString()} - Finished test: ${test.title}, the result is: ${result.status}`)
     }
 
     onEnd(result: FullResult): void | Promise<void | { status?: 'passed' | 'failed' | 'timedout' | 'interrupted' | undefined; } | undefined> {
-        console.log(`${new Date().toLocaleString()} Finished the run: ${result.status}`)
+        console.log(`${new Date().toLocaleString()} - Finished the run: ${result.status}`)
     }
 
     public static logAction(message: string) {
-        console.log(`${new Date().toLocaleString()} ${message}`)
+        console.log(`${new Date().toLocaleString()} - ${message}`)
     }
 
     onStdOut(chunk: string | Buffer, test: void | TestCase, result: void | TestResult): void {
