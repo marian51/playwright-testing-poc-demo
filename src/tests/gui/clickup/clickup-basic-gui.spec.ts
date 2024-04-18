@@ -43,7 +43,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await newSpaceModal.waitForModalDisappear();
 
             const mainview = new MainView(page)
-            await mainview.waitForNewTaskInput();
+            await mainview.waitForNewListButton();
         });
 
         await test.step("Then new space is created", async () => {
