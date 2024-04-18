@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import CustomReporter from "../../helpers/reporter";
 
 export class MainView {
     readonly page: Page
@@ -17,6 +18,7 @@ export class MainView {
 
     async waitForNewListButton() {
         await this.newListButton.waitFor()
+        CustomReporter.logAction(`Main view has been refreshed`)
     }
 
 }
