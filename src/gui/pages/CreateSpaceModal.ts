@@ -1,5 +1,7 @@
 import test, { Locator, Page, expect } from "@playwright/test";
 import { allure } from "allure-playwright";
+import { CommonMethods } from "../common_methods";
+import CustomReporter from "../../helpers/reporter";
 
 export class CreateSpaceModal {
     readonly page: Page;
@@ -17,8 +19,9 @@ export class CreateSpaceModal {
     }
 
     async typeIntoNewSpaceNameInput(text: string) {
-        return await test.step(`Typing 'text' into new space name input`, async () => {
-            await this.newSpaceNameInput.fill(text)
+        return await test.step(`Typing '${text}' into new space name input`, async () => {
+            await CommonMethods.typeIntoField(this.newSpaceNameInput, text)
+            CustomReporter.logAction(`Typed '${text}' into new space name input`)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -27,7 +30,8 @@ export class CreateSpaceModal {
 
     async clickOnContinueButton() {
         return await test.step(`Clicking on 'continue' button`, async () => {
-            await this.continueButton.click()
+            await CommonMethods.clickOnElement(this.continueButton)
+            CustomReporter.logAction(`Clicked on 'continue' button`)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -36,7 +40,8 @@ export class CreateSpaceModal {
 
     async clickOnCreateSpaceButton() {
         return await test.step(`Clicking on 'Create Space' button on modal`, async () => {
-            await this.createSpaceButton.click()
+            await CommonMethods.clickOnElement(this.createSpaceButton)
+            CustomReporter.logAction(`Clicked on 'Create Space' button on modal`)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -46,6 +51,7 @@ export class CreateSpaceModal {
     async waitForModalDisappear() {
         return await test.step(`Waiting for modal dissapear`, async () => {
             await expect(this.modalView).toBeHidden()
+            CustomReporter.logAction(`Modal window has dissapeared`)
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })

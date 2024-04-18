@@ -1,5 +1,7 @@
 import test, { Locator, Page } from "@playwright/test";
 import { allure } from "allure-playwright";
+import { CommonMethods } from "../common_methods";
+import CustomReporter from "../../helpers/reporter";
 require("dotenv").config({path:"./.env"})
 
 export class LoginPage {
@@ -22,7 +24,8 @@ export class LoginPage {
 
     async typeIntoEmailField(text: string) {
         return await test.step(`Typing '${text}' into email field`, async () => {
-            await this.emailField.fill(text);
+            await CommonMethods.typeIntoField(this.emailField, text);
+            CustomReporter.logAction(`Typed text: ${text} into email field`)
             await allure.attachment("screenshot1.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -31,7 +34,8 @@ export class LoginPage {
 
     async typeIntoPasswordField(text: string) {
         return await test.step(`Typing '********' into password field`, async () => {
-            await this.passwordField.fill(text);
+            await CommonMethods.typeIntoField(this.passwordField, text);
+            CustomReporter.logAction(`Typed text: ******** into password field`)
             await allure.attachment("screenshot2.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })
@@ -40,7 +44,9 @@ export class LoginPage {
 
     async clickLogIn() {
         return await test.step(`Clicking on 'Log In' button`, async () => {
-            await this.loginButton.click()
+            await this.loginButton.focus()
+            await CommonMethods.clickOnElement(this.loginButton)
+            CustomReporter.logAction(`Clicked on 'Log In' button`)
             await allure.attachment("screenshot3.png", await this.page.screenshot(), {
                 contentType: "image/png"
             })

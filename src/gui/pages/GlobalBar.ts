@@ -1,4 +1,5 @@
 import { Locator, Page } from "@playwright/test";
+import CustomReporter from "../../helpers/reporter";
 
 export class GlobalBar {
     readonly page: Page;
@@ -11,5 +12,6 @@ export class GlobalBar {
 
     async waitForLoad() {
         await this.userSettingImage.waitFor()
+        CustomReporter.logAction(`Main bashboard has been loaded`)
     }
 }
