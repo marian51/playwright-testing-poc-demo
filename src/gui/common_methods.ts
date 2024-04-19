@@ -21,4 +21,11 @@ export class CommonMethods {
         await this.markWithColor(element)
         await element.click()
     }
+
+    static async rightClickOnElement(element: Locator) {
+        await this.markWithColor(element)
+        await element.click({
+            button: 'right'
+        })
+    }
 }
