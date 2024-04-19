@@ -13,6 +13,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         page, request
     }) => {
         await allure.tag("GUI")
+        await allure.tag("Space")
 
         const newSpaceName = "GUI space create test";
         const username = process.env.USERNAME as string;
