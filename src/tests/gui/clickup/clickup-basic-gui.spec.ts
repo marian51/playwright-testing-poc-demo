@@ -7,6 +7,8 @@ import { MainView } from "../../../gui/pages/MainView";
 import { allure } from "allure-playwright";
 import { Hooks } from "../../../helpers/hooks";
 import { CreateListModal } from "../../../gui/pages/CreateListModal";
+import { SpaceMenuContext } from "../../../gui/pages/contextMenus/SpaceMenuContext";
+import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
@@ -53,6 +55,48 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         });
 
         await Hooks.deleteSpaceByName(request, newSpaceName);
+    });
+
+    test("@gui-clickup @clickup Delete space and check if space is deleted", async ({
+        page, request
+    }) => {
+        await allure.tag("GUI")
+        await allure.tag("Space")
+
+        const newSpaceName = "GUI space create test";
+        const username = process.env.USERNAME as string;
+        const password = process.env.PASSWORD as string;
+        const loginPage = new LoginPage(page);
+        const globalBar = new GlobalBar(page);
+        const leftSideBar = new LeftSideBar(page);
+
+        await allure.parameter("User name", username)
+        await allure.parameter("User password", password, { mode: "masked" })
+
+        await Hooks.createSpaceByName(request, newSpaceName)
+
+        await test.step("Given user can log in to the application", async () => {
+            await loginPage.goto();
+            await loginPage.typeIntoEmailField(username);
+            await loginPage.typeIntoPasswordField(password);
+            await loginPage.clickLogIn();
+
+            await globalBar.waitForLoad();
+        });
+
+        await test.step("When user deletes existing space", async () => {
+            await leftSideBar.rightClickOnElement(newSpaceName)
+            const spaceMenuContext = new SpaceMenuContext(page)
+            await spaceMenuContext.clickOnDeleteOption()
+            
+            const deleteSpaceModal = new DeleteSpaceModal(page)
+            await deleteSpaceModal.typeIntoNameInput(newSpaceName)
+            await deleteSpaceModal.clickOnDeleteButton()
+        });
+
+        await test.step("Then new space is deleted", async () => {
+            await leftSideBar.assertThatLeftSideBarDoesNotContainElement(newSpaceName);
+        });
     });
 
     test('@gui-clickup @clickup Create list and check if list is created', async ({ page, request }) => {
