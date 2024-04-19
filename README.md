@@ -97,3 +97,38 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 - Example of report - results of GUI test (showing steps, screenshots etc.)
 
 <img src="./assets/screenshot-2.png" />
+
+## Changelog
+
+<details>
+
+<summary><strong>19.04.2024</strong></summary>
+
+- added test for checking if creating new list works correct (added new page, methods etc.)
+- added tag "Space" to space gui test
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>18.04.2024</strong></summary>
+
+- changed target element when waiting for loading main view after creating new space (due to changes in ClickUp)
+- introduced custom reporter for sending logs to console after actions
+- added custom reporter to page classes
+- added colors to custom logs
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>17.04.2024</strong></summary>
+
+- added deleting space (hook) after execution GUI and API tests for checking if creating new space works correct
+- added common methods for performing actions like typing text, clicking etc.
+
+</details>

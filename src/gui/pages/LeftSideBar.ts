@@ -39,6 +39,27 @@ export class LeftSideBar {
         })
     }
 
+    async checkIfElementExist(elementName: string): Promise<void> {
+        return await test.step(`Checking if element '${elementName} is on left side bar`, async () => {
+            elementName = " " + elementName + " "
+            if (!(await this.getLeftMenuSpans()).includes(elementName)) {
+                await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                    contentType: "image/png"
+                })
+                throw new Error(`The Space with name '${elementName}' does not exist!`); 
+            }
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png"
+            })
+        })
+    }
+
+    async clickOnElement(elementName: string) {
+        elementName = " " + elementName + " "
+        const element = this.page.locator("cdk-tree-node span span").getByText(elementName)
+        await CommonMethods.clickOnElement(element)
+    }
+
     async assertThatLeftSideBarContainsElement(element: string) {
         return await test.step("Returning list of element on left side bar", async () => {
             let list = await this.getLeftMenuSpans();
