@@ -112,6 +112,8 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 
 - added test for checking if creating new list works correct (added new page, methods etc.)
 - added tag "Space" to space gui test
+- changed assertion for checking if element exist on left side bar
+- added test for checking if deleting existing space works correct (added new pages, methods etc.)
 
 </details>
 
