@@ -12,6 +12,10 @@ import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.route('**/*.css', (route) => { route.abort(); });
+    });
+    
     test("@gui-clickup @clickup Create space and check if space is created", async ({
         page, request
     }) => {
