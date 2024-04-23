@@ -6,7 +6,7 @@ This is a *demo* project based on the **Playwirght** framework for creating and 
 
 ## ❗ IMPORTANT - BUGS DETECTED ❗
 
-- There is bug with getting screenshots in tests running in "headed" mode. Test are stucking at the moment of taking screenshot. Bug is reported: https://github.com/microsoft/playwright/issues/28995 . At this moment, probably there is **no way to run tests in headed mode with taking screenshots**.
+- There is bug with getting screenshots in tests running in "headed" mode. Test are stucking at the moment of taking screenshot. Bug is reported: https://github.com/microsoft/playwright/issues/28995 . At this moment, there is workaround (prevent accessing some assets before each test) and tests with screenshots are working fine.
 
 - Due to some Windows updates, there is bug with running `allure` to generate reports (`Error: spawn EINVAL` etc., [➡️*link to similar issue and solution*⬅️](https://community.sap.com/t5/technology-q-a/visual-code-studio-command-run-failed-with-error-spawn-einval/qaq-p/13670880)).
 
