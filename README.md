@@ -4,13 +4,19 @@
 
 This is a *demo* project based on the **Playwirght** framework for creating and running automated tests. It currently includes a pair of *Pet Store* site API tests (endpoint `/v2/store/order/` tests) and a pair of ClickUp site API tests, depending on the branch.
 
+## ❗ IMPORTANT - BUGS DETECTED ❗
+
+- There is bug with getting screenshots in tests running in "headed" mode. Test are stucking at the moment of taking screenshot. Bug is reported: https://github.com/microsoft/playwright/issues/28995 . At this moment, probably there is **no way to run tests in headed mode with taking screenshots**.
+
+- Due to some Windows updates, there is bug with running `allure` to generate reports (`Error: spawn EINVAL` etc., [➡️*link to similar issue and solution*⬅️](https://community.sap.com/t5/technology-q-a/visual-code-studio-command-run-failed-with-error-spawn-einval/qaq-p/13670880)).
+
 ## Project startup
 
 ### Requirements
 
 To run the project, you need to install:
 
-- nodejs
+- nodejs (**strongly recommended to install `16.20.2` version**)
 - Java 8 or later (required by *Allure* tool to generate reports)
 
 ### Installation
