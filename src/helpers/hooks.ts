@@ -1,5 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
 import {
+    listCreateEndpoint,
     spaceDeleteEndpoint,
     spaceEndpoint,
 } from "../api/endpoints/clickUp_endpoints";
@@ -28,14 +29,33 @@ export class Hooks {
     static async createSpaceByName(
         request: APIRequestContext,
         spaceName: string
-    ) {
+    ): Promise<string> {
         const teamId = process.env.BASE_TEAM_ID as string;
         const endpoint = spaceEndpoint.replace("TEAM_ID", teamId);
         const apiKey = AuthService.getApiKey();
 
-        await request.post(endpoint, {
+        const response = await request.post(endpoint, {
             headers: { Authorization: apiKey },
             data: { name: spaceName },
         });
+
+        return (await response.json()).id;
+    }
+
+    static async createListByName(
+        request: APIRequestContext,
+        spaceId: string,
+        listName: string
+    ): Promise<string> {
+        const teamId = process.env.BASE_TEAM_ID as string;
+        const endpoint = listCreateEndpoint.replace("SPACE_ID", spaceId);
+        const apiKey = AuthService.getApiKey();
+
+        const response = await request.post(endpoint, {
+            headers: { Authorization: apiKey },
+            data: { name: listName },
+        });
+
+        return (await response.json()).id;
     }
 }
