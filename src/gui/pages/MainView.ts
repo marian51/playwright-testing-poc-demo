@@ -82,6 +82,12 @@ export class MainView {
     async assertThatTaskIsDisplayedOnTheList(taskName: string) {
         return allure.step(`Checking if task with name ${taskName} is displayed on the list`, async () => {
             const element = this.page.locator(`[data-test="task-row-main__link-text__${taskName}"]`);
+            await allure.attachment("Given element", taskName, {
+                contentType: "text/plain",
+            });
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
             await expect(element).toBeVisible();
         });
     }
