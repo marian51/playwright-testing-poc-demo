@@ -9,6 +9,8 @@ import { Hooks } from "../../../helpers/hooks";
 import { CreateListModal } from "../../../gui/pages/CreateListModal";
 import { SpaceMenuContext } from "../../../gui/pages/contextMenus/SpaceMenuContext";
 import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
+import { ListMenuContext } from "../../../gui/pages/contextMenus/ListMenuContext";
+import { DeleteListModal } from "../../../gui/pages/DeleteListModal";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
@@ -159,5 +161,58 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         });
 
         await Hooks.deleteSpaceByName(request, newSpaceName);
+    });
+
+    test("@gui-clickup @clickup Delete list and check if list is deleted", async ({
+        page,
+        request,
+    }) => {
+        await allure.tag("GUI");
+        await allure.tag("List");
+
+        const newSpaceName = "GUI space create test";
+        const newListName = "GUI list create test";
+        const username = process.env.USERNAME as string;
+        const password = process.env.PASSWORD as string;
+        const loginPage = new LoginPage(page);
+        const globalBar = new GlobalBar(page);
+        const leftSideBar = new LeftSideBar(page);
+
+        await allure.parameter("User name", username);
+        await allure.parameter("User password", password, { mode: "masked" });
+
+        const spaceId = await Hooks.createSpaceByName(request, newSpaceName);
+        const listId = await Hooks.createListByName(
+            request,
+            spaceId,
+            newListName
+        );
+
+        await test.step("Given user can log in to the application", async () => {
+            await loginPage.goto();
+            await loginPage.typeIntoEmailField(username);
+            await loginPage.typeIntoPasswordField(password);
+            await loginPage.clickLogIn();
+
+            await globalBar.waitForLoad();
+        });
+
+        await test.step("When user deletes existing list", async () => {
+            await leftSideBar.clickOnElement(newSpaceName);
+            await leftSideBar.rightClickOnElement(newListName);
+            const listMenuContext = new ListMenuContext(page);
+            await listMenuContext.clickOnDeleteOption();
+
+            const deleteListModal = new DeleteListModal(page);
+            await deleteListModal.clickOnDeleteButton();
+        });
+
+        await test.step("Then new list is deleted", async () => {
+            await leftSideBar.assertThatLeftSideBarDoesNotContainElement(
+                newListName
+            );
+        });
+
+        await Hooks.deleteSpaceById(request, spaceId);
     });
 });
