@@ -11,6 +11,7 @@ import { SpaceMenuContext } from "../../../gui/pages/contextMenus/SpaceMenuConte
 import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
 import { ListMenuContext } from "../../../gui/pages/contextMenus/ListMenuContext";
 import { DeleteListModal } from "../../../gui/pages/DeleteListModal";
+import { TaskMenuContext } from "../../../gui/pages/contextMenus/TaskContextMenu";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
@@ -241,6 +242,51 @@ test.describe("GUI Clickup basic functionalities tests", () => {
 
         await test.step("Then new list is deleted", async () => {
             await mainView.assertThatTaskIsDisplayedOnTheList(newTaskName);
+        });
+
+        await Hooks.deleteSpaceById(request, spaceId);
+    });
+
+    test("@gui-clickup @clickup @this-one Delete task and check if task is deleted", async ({ page, request }) => {
+        await allure.tag("GUI");
+        await allure.tag("Task");
+
+        const newSpaceName = "GUI space create test";
+        const newListName = "GUI list create test";
+        const newTaskName = "GUI task create test";
+        const username = process.env.USERNAME as string;
+        const password = process.env.PASSWORD as string;
+        const loginPage = new LoginPage(page);
+        const leftSideBar = new LeftSideBar(page);
+        const mainView = new MainView(page);
+
+        await allure.parameter("User name", username);
+        await allure.parameter("User password", password, { mode: "masked" });
+
+        const spaceId = await Hooks.createSpaceByName(request, newSpaceName);
+        const listId = await Hooks.createListByName(request, spaceId, newListName);
+        const taskId = await Hooks.createTaskByName(request, listId, newTaskName);
+
+        await test.step("Given user can log in to the application", async () => {
+            await loginPage.goto();
+            await loginPage.typeIntoEmailField(username);
+            await loginPage.typeIntoPasswordField(password);
+            await loginPage.clickLogIn();
+
+            await mainView.waitForExcelCsvBubble();
+        });
+
+        await test.step("When user deletes existing task", async () => {
+            await leftSideBar.clickOnElement(newSpaceName);
+            await leftSideBar.clickOnElement(newListName);
+
+            await mainView.rightClickOnElement(newTaskName);
+
+            await new TaskMenuContext(page).clickOnDeleteOption();
+        });
+
+        await test.step("Then new task is deleted", async () => {
+            await mainView.assertThatTaskIsNotDisplayedOnTheList(newTaskName);
         });
 
         await Hooks.deleteSpaceById(request, spaceId);
