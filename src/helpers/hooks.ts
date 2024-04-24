@@ -26,6 +26,16 @@ export class Hooks {
         });
     }
 
+    static async deleteSpaceById(request: APIRequestContext, spaceId: string) {
+        const teamId = process.env.BASE_TEAM_ID as string;
+        const endpoint = spaceEndpoint.replace("TEAM_ID", teamId);
+        const apiKey = AuthService.getApiKey();
+
+        await request.delete(spaceDeleteEndpoint + spaceId, {
+            headers: { Authorization: apiKey },
+        });
+    }
+
     static async createSpaceByName(
         request: APIRequestContext,
         spaceName: string
