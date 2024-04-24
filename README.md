@@ -113,6 +113,8 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 - added hook method for deleting space by id
 - added test for checking if deleting list works correct (includes new page classes)
 - changed object that the application waits for while loading (due to some flakiness)
+- added test for checking if creating new task works correct (includes new classes, methods etc.)
+- added test for checking if deleting task works correct
 
 </details>
 
