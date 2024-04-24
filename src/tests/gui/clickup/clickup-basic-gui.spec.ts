@@ -11,7 +11,7 @@ import { SpaceMenuContext } from "../../../gui/pages/contextMenus/SpaceMenuConte
 import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
 import { ListMenuContext } from "../../../gui/pages/contextMenus/ListMenuContext";
 import { DeleteListModal } from "../../../gui/pages/DeleteListModal";
-import { TaskMenuContext } from "../../../gui/pages/contextMenus/TaskContextMenu";
+import { TaskMenuContext } from "../../../gui/pages/contextMenus/TaskMenuContext";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
