@@ -6,7 +6,7 @@ This is a *demo* project based on the **Playwirght** framework for creating and 
 
 ## ❗ IMPORTANT - BUGS DETECTED ❗
 
-- There is bug with getting screenshots in tests running in "headed" mode. Test are stucking at the moment of taking screenshot. Bug is reported: https://github.com/microsoft/playwright/issues/28995 . At this moment, there is workaround (prevent accessing some assets before each test) and tests with screenshots are working fine.
+- There is bug with getting screenshots in tests running in "headed" mode. Tests are stucking at the moment of taking screenshot. Bug is reported: https://github.com/microsoft/playwright/issues/28995 . At this moment, there is workaround (prevent accessing some assets before each test) and tests with screenshots are working fine.
 
 - Due to some Windows updates, there is bug with running `allure` to generate reports (`Error: spawn EINVAL` etc., [➡️*link to similar issue and solution*⬅️](https://community.sap.com/t5/technology-q-a/visual-code-studio-command-run-failed-with-error-spawn-einval/qaq-p/13670880)).
 
@@ -80,8 +80,6 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 
         npm run test-headed --tag='<tag_name>'
 
-    For example, running the command `npm run test --tag='@examination'` will run only those tests whose name contains the phrase `@examination`. If the specified phrase is not in the name of any test, nothing will run.
-
 <br/>
         
 **❗Warning** <br/>In the case of the first two commands, changing their contents will not trigger the running of other tests, e.g. the `npm run test:gui` command will not be run because it has not been *hardly* saved in the `package.json` file. These commands are still in development.
@@ -105,6 +103,33 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 <img src="./assets/screenshot-2.png" />
 
 ## Changelog
+
+<details>
+
+<summary><strong>24.04.2024</strong></summary>
+
+- formatted some files with Prettier
+- added hook method for creating new list by name
+- added hook method for deleting space by id
+- added test for checking if deleting list works correct (includes new page classes)
+- changed object that the application waits for while loading (due to some flakiness)
+- added test for checking if creating new task works correct (includes new classes, methods etc.)
+- added test for checking if deleting task works correct
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>23.04.2024</strong></summary>
+
+- repaired bug - tests were stucking at taking screenshots due to trying to access some assets
+- added `allure-commandline` library to project
+
+</details>
+
+</br>
 
 <details>
 
