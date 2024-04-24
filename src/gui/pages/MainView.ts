@@ -69,6 +69,12 @@ export class MainView {
         });
     }
 
+    async rightClickOnElement(elementName: string) {
+        elementName = " " + elementName + " ";
+        const element = this.page.locator("main").getByText(elementName);
+        await CommonMethods.rightClickOnElement(element);
+    }
+
     async typeIntoNewTaskInput(text: string) {
         return allure.step("Typing into new task input", async () => {
             await CommonMethods.typeIntoField(this.newTaskInput, text);
@@ -89,6 +95,19 @@ export class MainView {
                 contentType: "image/png",
             });
             await expect(element).toBeVisible();
+        });
+    }
+
+    async assertThatTaskIsNotDisplayedOnTheList(taskName: string) {
+        return allure.step(`Checking if task with name '${taskName}' is NOT displayed on the list`, async () => {
+            const element = this.page.locator(`[data-test="task-row-main__link-text__${taskName}"]`);
+            await allure.attachment("Given element", taskName, {
+                contentType: "text/plain",
+            });
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
+            await expect(element).not.toBeVisible();
         });
     }
 }
