@@ -1,5 +1,10 @@
 import { APIRequestContext } from "@playwright/test";
-import { listCreateEndpoint, spaceDeleteEndpoint, spaceEndpoint } from "../api/endpoints/clickUp_endpoints";
+import {
+    listCreateEndpoint,
+    spaceDeleteEndpoint,
+    spaceEndpoint,
+    taskCreateEndpoint,
+} from "../api/endpoints/clickUp_endpoints";
 import { AuthService } from "../api/utils/auth_service";
 
 export class Hooks {
@@ -48,6 +53,18 @@ export class Hooks {
         const response = await request.post(endpoint, {
             headers: { Authorization: apiKey },
             data: { name: listName },
+        });
+
+        return (await response.json()).id;
+    }
+
+    static async createTaskByName(request: APIRequestContext, listId: string, taskName: string): Promise<string> {
+        const endpoint = taskCreateEndpoint.replace("LIST_ID", listId);
+        const apiKey = AuthService.getApiKey();
+
+        const response = await request.post(endpoint, {
+            headers: { Authorization: apiKey },
+            data: { name: taskName },
         });
 
         return (await response.json()).id;
