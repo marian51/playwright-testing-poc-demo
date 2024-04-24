@@ -33,6 +33,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         const loginPage = new LoginPage(page);
         const globalBar = new GlobalBar(page);
         const leftSideBar = new LeftSideBar(page);
+        const mainview = new MainView(page);
 
         await allure.parameter("User name", username);
         await allure.parameter("User password", password, { mode: "masked" });
@@ -43,7 +44,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await loginPage.typeIntoPasswordField(password);
             await loginPage.clickLogIn();
 
-            await globalBar.waitForLoad();
+            await mainview.waitForExcelCsvBubble();
         });
 
         await test.step("When user creates new space", async () => {
@@ -55,7 +56,6 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await newSpaceModal.clickOnCreateSpaceButton();
             await newSpaceModal.waitForModalDisappear();
 
-            const mainview = new MainView(page);
             await mainview.waitForNewListButton();
         });
 
@@ -93,7 +93,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await loginPage.typeIntoPasswordField(password);
             await loginPage.clickLogIn();
 
-            await globalBar.waitForLoad();
+            await new MainView(page).waitForExcelCsvBubble();
         });
 
         await test.step("When user deletes existing space", async () => {
@@ -127,6 +127,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         const loginPage = new LoginPage(page);
         const globalBar = new GlobalBar(page);
         const leftSideBar = new LeftSideBar(page);
+        const mainView = new MainView(page);
 
         await allure.parameter("User name", username);
         await allure.parameter("User password", password, { mode: "masked" });
@@ -139,7 +140,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await loginPage.typeIntoPasswordField(password);
             await loginPage.clickLogIn();
 
-            await globalBar.waitForLoad();
+            await mainView.waitForExcelCsvBubble();
         });
 
         await test.step("And there is space created by user", async () => {
@@ -148,7 +149,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
 
         await test.step("When user created new list in existing space", async () => {
             await leftSideBar.clickOnElement(newSpaceName);
-            await new MainView(page).clickOnAddListButton();
+            await mainView.clickOnAddListButton();
 
             const newListModal = new CreateListModal(page);
             await newListModal.typeIntoNewListNameInput(newListName);
@@ -194,7 +195,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await loginPage.typeIntoPasswordField(password);
             await loginPage.clickLogIn();
 
-            await globalBar.waitForLoad();
+            await new MainView(page).waitForExcelCsvBubble();
         });
 
         await test.step("When user deletes existing list", async () => {
