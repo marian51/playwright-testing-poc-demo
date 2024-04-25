@@ -106,6 +106,18 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 
 <details>
 
+<summary><strong>25.04.2024</strong></summary>
+
+- moved classes for modals to separated folder
+- added basic interfaces for modals
+- made classes for modals implementing basic interfaces
+
+</details>
+
+</br>
+
+<details>
+
 <summary><strong>24.04.2024</strong></summary>
 
 - formatted some files with Prettier
@@ -115,6 +127,7 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 - changed object that the application waits for while loading (due to some flakiness)
 - added test for checking if creating new task works correct (includes new classes, methods etc.)
 - added test for checking if deleting task works correct
+- added basic class for classes for context menus and made them inherit
 
 </details>
 
