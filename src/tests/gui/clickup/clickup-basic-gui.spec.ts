@@ -2,16 +2,16 @@ import test, { expect } from "@playwright/test";
 import { LoginPage } from "../../../gui/pages/LoginPage";
 import { GlobalBar } from "../../../gui/pages/GlobalBar";
 import { LeftSideBar } from "../../../gui/pages/LeftSideBar";
-import { CreateSpaceModal } from "../../../gui/pages/CreateSpaceModal";
+import { CreateSpaceModal } from "../../../gui/pages/modals/CreateSpaceModal";
 import { MainView } from "../../../gui/pages/MainView";
 import { allure } from "allure-playwright";
 import { Hooks } from "../../../helpers/hooks";
-import { CreateListModal } from "../../../gui/pages/CreateListModal";
+import { CreateListModal } from "../../../gui/pages/modals/CreateListModal";
 import { SpaceMenuContext } from "../../../gui/pages/contextMenus/SpaceMenuContext";
-import { DeleteSpaceModal } from "../../../gui/pages/DeleteSpaceModal";
+import { DeleteSpaceModal } from "../../../gui/pages/modals/DeleteSpaceModal";
 import { ListMenuContext } from "../../../gui/pages/contextMenus/ListMenuContext";
-import { DeleteListModal } from "../../../gui/pages/DeleteListModal";
-import { TaskMenuContext } from "../../../gui/pages/contextMenus/TaskContextMenu";
+import { DeleteListModal } from "../../../gui/pages/modals/DeleteListModal";
+import { TaskMenuContext } from "../../../gui/pages/contextMenus/TaskMenuContext";
 require("dotenv").config({ override: true });
 
 test.describe("GUI Clickup basic functionalities tests", () => {
@@ -49,9 +49,9 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             const newSpaceModal = new CreateSpaceModal(page);
 
             await leftSideBar.clickOnCreateSpaceButton();
-            await newSpaceModal.typeIntoNewSpaceNameInput(newSpaceName);
+            await newSpaceModal.typeIntoNewEntryNameInput(newSpaceName);
             await newSpaceModal.clickOnContinueButton();
-            await newSpaceModal.clickOnCreateSpaceButton();
+            await newSpaceModal.clickOnCreateButton();
             await newSpaceModal.waitForModalDisappear();
 
             await mainview.waitForNewListButton();
@@ -140,8 +140,8 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await mainView.clickOnAddListButton();
 
             const newListModal = new CreateListModal(page);
-            await newListModal.typeIntoNewListNameInput(newListName);
-            await newListModal.clickOnCreateListButton();
+            await newListModal.typeIntoNewEntryNameInput(newListName);
+            await newListModal.clickOnCreateButton();
             await newListModal.waitForModalDisappear();
         });
 
