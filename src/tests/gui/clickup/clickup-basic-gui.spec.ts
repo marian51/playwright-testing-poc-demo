@@ -49,9 +49,9 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             const newSpaceModal = new CreateSpaceModal(page);
 
             await leftSideBar.clickOnCreateSpaceButton();
-            await newSpaceModal.typeIntoNewSpaceNameInput(newSpaceName);
+            await newSpaceModal.typeIntoNewEntryNameInput(newSpaceName);
             await newSpaceModal.clickOnContinueButton();
-            await newSpaceModal.clickOnCreateSpaceButton();
+            await newSpaceModal.clickOnCreateButton();
             await newSpaceModal.waitForModalDisappear();
 
             await mainview.waitForNewListButton();
@@ -140,8 +140,8 @@ test.describe("GUI Clickup basic functionalities tests", () => {
             await mainView.clickOnAddListButton();
 
             const newListModal = new CreateListModal(page);
-            await newListModal.typeIntoNewListNameInput(newListName);
-            await newListModal.clickOnCreateListButton();
+            await newListModal.typeIntoNewEntryNameInput(newListName);
+            await newListModal.clickOnCreateButton();
             await newListModal.waitForModalDisappear();
         });
 

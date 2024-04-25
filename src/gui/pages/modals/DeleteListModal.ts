@@ -2,8 +2,9 @@ import test, { Locator, Page } from "@playwright/test";
 import { CommonMethods } from "../../common_methods";
 import CustomReporter from "../../../helpers/reporter";
 import { allure } from "allure-playwright";
+import { BaseDeleteModal } from "./BaseDeleteModal";
 
-export class DeleteListModal {
+export class DeleteListModal implements BaseDeleteModal {
     readonly page: Page;
     readonly modalView: Locator;
     readonly deleteButton: Locator;
