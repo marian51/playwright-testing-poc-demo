@@ -60,7 +60,7 @@ export class LoginPage {
     async checkIfMainHeaderIsDisplayed() {
         return await test.step(`Checking if main header is displayed`, async () => {
             CustomReporter.logAction(`Checking if main header is displayed`);
-            await this.mainHeader.waitFor({ timeout: 5000 });
+            await CommonMethods.waitForElement(this.mainHeader, 5000);
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png",
             });
@@ -70,7 +70,7 @@ export class LoginPage {
     async checkIfLoginButtonIsDisplayed() {
         return await test.step(`Checking if login button is displayed`, async () => {
             CustomReporter.logAction(`Checking if login button is displayed`);
-            await this.loginButton.waitFor({ timeout: 5000 });
+            await CommonMethods.waitForElement(this.loginButton, 5000);
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png",
             });
