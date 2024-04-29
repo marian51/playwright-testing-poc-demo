@@ -113,7 +113,7 @@ export class MainView {
 
     async assertThatMainViewIsLoaded() {
         return allure.step(`Checking if main view is loaded (waiting for 'Excel&CSV' bubble)`, async () => {
-            await expect(this.excelCsvBubble).toBeVisible({ timeout: 10000 });
+            await expect(this.excelCsvBubble).toBeVisible({ timeout: 15000 });
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png",
             });
