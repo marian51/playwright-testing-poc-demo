@@ -64,14 +64,14 @@ test.describe("GUI ClickUp basic test on login screen", async () => {
 
         await test.step("When user passes incorrect email to email input", async () => {
             await loginPage.typeIntoEmailField(notCorrectUsername);
-            await loginPage.mainHeader.focus();
+            await loginPage.passwordField.focus();
         });
 
         await test.step("Then the error message is displayed under email input", async () => {
             await loginPage.assertThatErrorMessageUnderEmailInputIsDisplayed();
         });
 
-        await test.step("And the error message has proper test", async () => {
+        await test.step("And the error message has proper text", async () => {
             await loginPage.assertThatErrorEmailMessageHasProperText(properErrorMessage);
         });
     });
