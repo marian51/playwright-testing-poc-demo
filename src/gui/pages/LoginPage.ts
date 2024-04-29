@@ -9,12 +9,14 @@ export class LoginPage {
     readonly emailField: Locator;
     readonly passwordField: Locator;
     readonly loginButton: Locator;
+    readonly mainHeader: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.emailField = page.getByLabel(" Email ");
         this.passwordField = page.getByLabel(" Password ");
         this.loginButton = page.locator("[data-test=login-submit]");
+        this.mainHeader = page.getByText("Welcome back!");
     }
 
     async goto() {
@@ -26,29 +28,19 @@ export class LoginPage {
         return await test.step(`Typing '${text}' into email field`, async () => {
             await CommonMethods.typeIntoField(this.emailField, text);
             CustomReporter.logAction(`Typed text: ${text} into email field`);
-            await allure.attachment(
-                "screenshot1.png",
-                await this.page.screenshot(),
-                {
-                    contentType: "image/png",
-                }
-            );
+            await allure.attachment("screenshot1.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
         });
     }
 
     async typeIntoPasswordField(text: string) {
         return await test.step(`Typing '********' into password field`, async () => {
             await CommonMethods.typeIntoField(this.passwordField, text);
-            CustomReporter.logAction(
-                `Typed text: ******** into password field`
-            );
-            await allure.attachment(
-                "screenshot2.png",
-                await this.page.screenshot(),
-                {
-                    contentType: "image/png",
-                }
-            );
+            CustomReporter.logAction(`Typed text: ******** into password field`);
+            await allure.attachment("screenshot2.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
         });
     }
 
@@ -57,13 +49,29 @@ export class LoginPage {
             await this.loginButton.focus();
             await CommonMethods.clickOnElement(this.loginButton);
             CustomReporter.logAction(`Clicked on 'Log In' button`);
-            await allure.attachment(
-                "screenshot3.png",
-                await this.page.screenshot(),
-                {
-                    contentType: "image/png",
-                }
-            );
+            await allure.attachment("screenshot3.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
+        });
+    }
+
+    async checkIfMainHeaderIsDisplayed() {
+        return await test.step(`Checking if main header is displayed`, async () => {
+            CustomReporter.logAction(`Checking if main header is displayed`);
+            await this.mainHeader.waitFor({ timeout: 5000 });
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
+        });
+    }
+
+    async checkIfLoginButtonIsDisplayed() {
+        return await test.step(`Checking if login button is displayed`, async () => {
+            CustomReporter.logAction(`Checking if login button is displayed`);
+            await this.loginButton.waitFor({ timeout: 5000 });
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
         });
     }
 }
