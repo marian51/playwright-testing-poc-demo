@@ -1,4 +1,4 @@
-import test, { Locator, Page } from "@playwright/test";
+import test, { Locator, Page, expect } from "@playwright/test";
 import { allure } from "allure-playwright";
 import { CommonMethods } from "../common_methods";
 import CustomReporter from "../../helpers/reporter";
@@ -10,6 +10,7 @@ export class LoginPage {
     readonly passwordField: Locator;
     readonly loginButton: Locator;
     readonly mainHeader: Locator;
+    readonly errorEmailMessage: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -17,6 +18,7 @@ export class LoginPage {
         this.passwordField = page.getByLabel(" Password ");
         this.loginButton = page.locator("[data-test=login-submit]");
         this.mainHeader = page.getByText("Welcome back!");
+        this.errorEmailMessage = page.locator("[data-test=form__error-email]");
     }
 
     async goto() {
@@ -69,6 +71,29 @@ export class LoginPage {
         return await test.step(`Checking if login button is displayed`, async () => {
             CustomReporter.logAction(`Checking if login button is displayed`);
             await this.loginButton.waitFor({ timeout: 5000 });
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
+        });
+    }
+
+    async assertThatErrorMessageUnderEmailInputIsDisplayed() {
+        return await test.step("Checking if error message under email input is displayed", async () => {
+            CustomReporter.logAction(`Checking if error message under email input is displayed`);
+            await expect(this.emailField.locator("..").locator(this.errorEmailMessage)).toBeVisible();
+            await allure.attachment("screenshot.png", await this.page.screenshot(), {
+                contentType: "image/png",
+            });
+        });
+    }
+
+    async assertThatErrorEmailMessageHasProperText(properText: string) {
+        return await test.step("Checking if error email message has proper text", async () => {
+            CustomReporter.logAction(`Checking if error message under email input is displayed`);
+            await expect(this.errorEmailMessage).toHaveText(properText);
+            await allure.attachment("Proper text", properText, {
+                contentType: "text/plain",
+            });
             await allure.attachment("screenshot.png", await this.page.screenshot(), {
                 contentType: "image/png",
             });
