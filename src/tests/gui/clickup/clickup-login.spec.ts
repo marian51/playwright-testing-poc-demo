@@ -4,14 +4,14 @@ import { LoginPage } from "../../../gui/pages/LoginPage";
 import { MainView } from "../../../gui/pages/MainView";
 require("dotenv").config({ override: true });
 
-test.describe("GUI ClickUp basic test on login screen", async () => {
+test.describe("GUI ClickUp basic test on login screen", { annotation: { type: "category", description: "Login screen tests" } }, async () => {
     test.beforeEach(async ({ page }) => {
         await page.route("**/*.css", (route) => {
             route.abort();
         });
     });
 
-    test("@gui-clickup @clickup @login Check if log in to application works correct", async ({ page }) => {
+    test("Check if log in to application works correct", { tag: ["@gui-clickup", "@clickup", "@login"] }, async ({ page }) => {
         allure.tag("GUI");
         allure.tag("Login");
 
@@ -46,7 +46,7 @@ test.describe("GUI ClickUp basic test on login screen", async () => {
         });
     });
 
-    test("@gui-clickup @clickup @login Check if passing incorrect email returns proper message", async ({ page }) => {
+    test("Check if passing incorrect email returns proper message", { tag: ["@gui-clickup", "@clickup", "@login"] }, async ({ page }) => {
         allure.tag("GUI");
         allure.tag("Login");
 
