@@ -20,13 +20,14 @@ export class CommonMethods {
 
     static async clickOnElement(element: Locator) {
         await this.markWithColor(element);
-        await element.click();
+        await element.click({ timeout: 5000 });
     }
 
     static async rightClickOnElement(element: Locator) {
         await this.markWithColor(element);
         await element.click({
             button: "right",
+            timeout: 5000,
         });
     }
 
