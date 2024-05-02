@@ -196,7 +196,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         await Hooks.deleteSpaceById(request, spaceId);
     });
 
-    test("@gui-clickup @clickup Create task and check if task is created", async ({ page, request }) => {
+    test("@gui-clickup @clickup @clickup-task Create task and check if task is created", async ({ page, request }) => {
         await allure.tag("GUI");
         await allure.tag("Task");
 
@@ -247,7 +247,7 @@ test.describe("GUI Clickup basic functionalities tests", () => {
         await Hooks.deleteSpaceById(request, spaceId);
     });
 
-    test("@gui-clickup @clickup Delete task and check if task is deleted", async ({ page, request }) => {
+    test("@gui-clickup @clickup @clickup-task Delete task and check if task is deleted", async ({ page, request }) => {
         await allure.tag("GUI");
         await allure.tag("Task");
 
