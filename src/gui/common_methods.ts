@@ -15,7 +15,7 @@ export class CommonMethods {
 
     static async typeIntoField(element: Locator, text: string) {
         await this.markWithColor(element);
-        await element.fill(text);
+        await element.fill(text, { timeout: 5000 });
     }
 
     static async clickOnElement(element: Locator) {
