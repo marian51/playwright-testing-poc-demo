@@ -106,6 +106,31 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 
 <details>
 
+<summary><strong>30.04.2024</strong></summary>
+
+- updated playwright version to `1.43.1`
+- added taking screenshots on failures
+- added 5 seconds timeout to clicking common method
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>29.04.2024</strong></summary>
+
+- changed way for checking if main view is loaded
+- added test for checking if logging to application with correct credentials works correct
+- added test for checking if error message is displayed while passing incorrect email
+- increased timeout for logging to application
+
+</details>
+
+</br>
+
+<details>
+
 <summary><strong>25.04.2024</strong></summary>
 
 - moved classes for modals to separated folder
