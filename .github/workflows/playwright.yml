@@ -19,7 +19,7 @@ jobs:
       - name: Set Timezone to Warsaw
         uses: szenius/set-timezone@v2.0
         with:
-          timezoneLinux: "Warsaw"
+          timezoneLinux: "Europe/Warsaw"
 
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,7 +35,7 @@ jobs:
         run: npx playwright install msedge
 
       - name: Run Playwright tests
-        run: npx playwright test --grep @clickup --workers=1 --project=Microsoft_Edge
+        run: npx playwright test --grep @clickup-task --workers=1 --project=Microsoft_Edge
       
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
