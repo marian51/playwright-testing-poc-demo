@@ -35,7 +35,7 @@ jobs:
         run: npx playwright install msedge
 
       - name: Run Playwright tests
-        run: npx playwright test --grep @clickup-task --workers=1 --project=Microsoft_Edge
+        run: npx playwright test --grep @gui-clickup --workers=1 --project=Microsoft_Edge
       
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
