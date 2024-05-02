@@ -9,11 +9,25 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      BASE_TEAM_ID: ${{ secrets.BASE_TEAM_ID }}
+      API_KEY: ${{ secrets.API_KEY }}
+      USERNAME: ${{ secrets.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
     steps:
+      - name: Set Timezone to Warsaw
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Europe/Warsaw"
+
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Install packages
+        run: npm install
+        
       - name: Install dependencies
         run: npm ci
 
@@ -21,7 +35,7 @@ jobs:
         run: npx playwright install msedge
 
       - name: Run Playwright tests
-        run: npx playwright test --grep @clickup --workers=1 --project=Microsoft_Edge"
+        run: npx playwright test --grep @gui-clickup --workers=1 --project=Microsoft_Edge
       
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
