@@ -6,6 +6,7 @@ node_modules/
 
 allure-results/
 allure-report/
+reports/
 .vscode
 
 package-lock.json
