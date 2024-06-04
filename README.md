@@ -138,6 +138,42 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 
 <details>
 
+<summary><strong>04.06.2024</strong></summary>
+
+- added basic steps definitions
+- associated Cucumber feature steps with steps definitions
+- modified some page object classes to make them running with Cucumber
+- added file with basic Cucumber configuration
+- added some dependencies to project
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>28.05.2024</strong></summary>
+
+- introduced Cucumber features
+- added basic feature file with basic test scenario
+
+</details>
+
+</br>
+
+<details>
+
+<summary><strong>02.05.2024</strong></summary>
+
+- introduced basic GitHub Actions
+- added basic steps to actions
+
+</details>
+
+</br>
+
+<details>
+
 <summary><strong>30.04.2024</strong></summary>
 
 - updated playwright version to `1.43.1`
