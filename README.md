@@ -31,6 +31,14 @@ To run the project, you need to install:
 
 - Reading sensitive data in the project, such as login data (username and password, API key etc.), is done using the `dotenv` tool - the data is read from the `.env` file located in the project's root folder. This file is ignored by git for security reasons and is not in the project. It has to be added from another source.
 
+- To correctly associate scenario steps (from `*.feature` files) with their definitions (from files in `steps` directory), you must add the following settings to VSC `setting.json` file:
+
+  ```json
+  "cucumber.glue": [
+        "**/steps/*.ts"
+    ]
+  ```
+
 ### Launching
 
 The most important settings are in the `playwright.config.ts` file. There you can set, for example, the browsers used, or the base URL. Details of the settings can be found in the Playwright documentation. In the current version of this project, only the Edge browser is enabled, with one worker (that is, it runs one test at a time).
@@ -81,6 +89,24 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
         npm run test-headed --tag='<tag_name>'
 
 <br/>
+
+- **NEW** Run tests in Cucumber style:
+
+        npx cucumber-js
+
+    *This command will be updated.*
+
+<br/>
+
+- **NEW** Generate Cucumber reports:
+
+        node ./htmlReportGenerator.js
+
+    *This command also will be updated.*
+    <br/>
+    Report will be generated in `reports` directory and *should* be opened immediately after above command execution.
+
+<br/>
         
 **❗Warning** <br/>In the case of the first two commands, changing their contents will not trigger the running of other tests, e.g. the `npm run test:gui` command will not be run because it has not been *hardly* saved in the `package.json` file. These commands are still in development.
 
@@ -101,6 +127,12 @@ In the `package.json` file, the `scripts` field contains *predefined* scripts. T
 - Example of report - results of GUI test (showing steps, screenshots etc.)
 
 <img src="./assets/screenshot-2.png" />
+
+</br>
+
+- Example of *Cucumber* report - results of very simple one GUI test
+
+<img src="./assets/screenshot-3.png" />
 
 ## Changelog
 
